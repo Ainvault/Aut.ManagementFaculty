@@ -7,10 +7,6 @@ const nextConfig: NextConfig = {
   output: "standalone",
   // Babel React Compiler is heavy in Docker/CI; keep it for local `next dev`.
   reactCompiler: process.env.DISABLE_REACT_COMPILER !== "1",
-  // Skip lint during CI image builds (lint can still run in a separate job later).
-  eslint: {
-    ignoreDuringBuilds: process.env.CI_FAST_BUILD === "1",
-  },
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
