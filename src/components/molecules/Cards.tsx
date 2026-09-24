@@ -84,7 +84,7 @@ export function ArticleCard({
   return (
     <article
       className={cn(
-        "group flex h-full flex-col",
+        "group flex h-full min-w-0 flex-col",
         featured && "lg:flex-row lg:gap-8",
       )}
     >
@@ -213,7 +213,7 @@ export function EventCard({
   }
 
   return (
-    <article className="flex flex-col gap-4 py-4 sm:border-e sm:border-border sm:px-5 sm:py-2 sm:last:border-e-0">
+    <article className="flex min-w-0 flex-col gap-4 border-b border-border px-0 py-5 last:border-b-0 md:border-b-0 md:border-e md:px-5 md:py-2 md:last:border-e-0">
       {body}
     </article>
   );

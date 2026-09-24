@@ -48,8 +48,8 @@ export function CampaignBanners({ banners }: { banners: CampaignBanner[] }) {
 
   return (
     <div className="bg-chart-3 text-background">
-      <Container className="flex items-center justify-between gap-4 py-3">
-        <p className="min-w-0 flex-1 text-sm leading-relaxed">
+      <Container className="flex min-w-0 items-center justify-between gap-3 py-3 sm:gap-4">
+        <p className="min-w-0 flex-1 text-sm leading-relaxed break-words">
           <span className="text-background/90">{banner.text}</span>{" "}
           <Link
             href={banner.href}

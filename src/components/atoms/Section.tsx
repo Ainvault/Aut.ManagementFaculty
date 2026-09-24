@@ -22,7 +22,7 @@ export function Section({
     <section
       data-tone={tone}
       className={cn(
-        "motion-section relative",
+        "motion-section relative min-w-0",
         tight ? "py-8 sm:py-10" : "py-16 sm:py-24",
         tones[tone],
         className,

@@ -30,7 +30,7 @@ export default async function ProfessionalLayout({
         courses={courses}
         programs={programs}
       />
-      <div className="flex-1">{children}</div>
+      <div className="min-w-0 flex-1 overflow-x-clip">{children}</div>
       <SiteFooter
         variant="professional"
         copyright={t("footer.copyright", { year })}

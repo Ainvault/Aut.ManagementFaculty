@@ -54,11 +54,11 @@ export function AcademicsOverlay({
           </Button>
         </div>
 
-        <h2 className="mb-10 max-w-3xl text-start text-3xl font-bold tracking-tight sm:text-4xl">
+        <h2 className="mb-10 max-w-3xl text-start text-3xl font-bold tracking-tight break-words sm:text-4xl">
           {title}
         </h2>
 
-        <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid min-w-0 gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {standardPrograms.map((program) => (
             <li key={program.id}>
               <Link

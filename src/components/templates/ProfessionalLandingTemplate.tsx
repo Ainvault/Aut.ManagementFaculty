@@ -54,17 +54,17 @@ export function ProfessionalLandingTemplate({
           tone="dark"
           className="inset-y-0 end-0 start-auto w-[min(72vw,36rem)] opacity-[0.5]"
         />
-        <div className="relative z-[2] flex min-h-[inherit] items-center py-12">
+        <div className="relative z-[2] flex min-h-[inherit] min-w-0 items-center py-12">
           <Container>
-            <div className="max-w-3xl text-start">
-              <div>
+            <div className="w-full min-w-0 max-w-3xl text-start">
+              <div className="min-w-0">
                 <p className="text-sm font-semibold text-background/75">
                   {labels.offeredBy}
                 </p>
                 <Heading
                   as="h1"
                   level={1}
-                  className="mt-4 text-4xl leading-tight text-background sm:text-6xl"
+                  className="mt-4 text-4xl leading-tight break-words text-background sm:text-6xl"
                 >
                   {labels.heroTitle}
                 </Heading>

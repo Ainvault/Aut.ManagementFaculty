@@ -1,9 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { JsonLd, organizationJsonLd } from "@/lib/seo/json-ld";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 const iranSans = localFont({
   src: [
@@ -93,7 +99,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir="rtl" className={`${iranSans.variable} h-full`}>
-      <body className="flex min-h-full flex-col font-sans">
+      <body className="flex min-h-full min-w-0 flex-col font-sans">
         <NextIntlClientProvider messages={messages}>
           <a
             href="#main-content"
@@ -102,7 +108,9 @@ export default async function RootLayout({
             {t("skipToContent")}
           </a>
           <JsonLd data={organizationJsonLd()} />
-          {children}
+          <div data-slot="page-shell" className="flex min-h-full min-w-0 flex-1 flex-col">
+            {children}
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

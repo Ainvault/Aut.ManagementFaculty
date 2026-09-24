@@ -13,7 +13,7 @@ type BrandLogoProps = {
   compact?: boolean;
 };
 
-/** AUT seal — white mark on transparent; sits on brand disc. */
+/** AUT seal — raw mark only (transparent), no disc/ring/background. */
 export function BrandLogo({
   href = "/",
   title,
@@ -33,8 +33,7 @@ export function BrandLogo({
     >
       <span
         className={cn(
-          "relative shrink-0 overflow-hidden rounded-full bg-chart-3 shadow-sm ring-1",
-          onDark ? "ring-background/25" : "ring-border",
+          "relative shrink-0",
           compact ? "size-9" : "size-11 sm:size-12",
         )}
       >
@@ -44,7 +43,11 @@ export function BrandLogo({
           fill
           priority
           sizes="48px"
-          className="object-contain p-[18%]"
+          className={cn(
+            "object-contain",
+            // Asset is white-on-transparent; invert to dark ink on light surfaces
+            !onDark && "brightness-0",
+          )}
         />
       </span>
       <span className="min-w-0 text-start leading-tight">
@@ -60,7 +63,7 @@ export function BrandLogo({
         {subtitle ? (
           <span
             className={cn(
-              "mt-0.5 block truncate text-[0.7rem] font-medium sm:text-xs",
+              "mt-0.5 hidden truncate text-[0.7rem] font-medium min-[380px]:block sm:text-xs",
               onDark ? "text-background/70" : "text-muted-foreground",
             )}
           >

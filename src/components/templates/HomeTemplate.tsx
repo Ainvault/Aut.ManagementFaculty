@@ -71,26 +71,26 @@ export function HomeIdeas({
     <>
     <Section className="relative py-20 sm:py-28">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-start lg:gap-20">
-          <div className="lg:sticky lg:top-28">
+        <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] lg:items-start lg:gap-20">
+          <div className="min-w-0 lg:sticky lg:top-28">
             <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary">چرا امیرکبیر؟</Badge>
-            <Heading level={2} className="mt-5 text-3xl leading-tight sm:text-4xl">
+            <Heading level={2} className="mt-5 text-3xl leading-tight break-words sm:text-4xl">
               آموزش برای جهانِ در حال تغییر
             </Heading>
             <p className="mt-5 text-base leading-8 text-muted-foreground sm:text-lg">
               اینجا آموزش، انتقال محتوا نیست؛ فضایی است برای دیدن مسئله از زاویه‌ای تازه، ساختن راه‌حل و اجرای آن در دنیای واقعی.
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+          <div className="grid min-w-0 gap-4 md:grid-cols-3 lg:grid-cols-1">
             {[
               { icon: Compass, title: "تفکر راهبردی", text: "دیدن مسئله از زاویه‌های تازه و تبدیل پیچیدگی به تصمیم‌های بهتر." },
               { icon: Building2, title: "اثر سازمانی", text: "یادگیری مبتنی بر مسئله‌های واقعی کسب‌وکار و صنعت ایران." },
               { icon: Network, title: "شبکه‌ی حرفه‌ای", text: "پیوند با مدیران، متخصصان و پژوهشگران برای رشد ماندگار." },
             ].map((item, index) => (
-              <Card key={item.title} className="border-border/70 py-0 shadow-none transition-colors hover:border-primary/25">
-                <CardContent className="flex h-full flex-col gap-5 p-6 lg:flex-row lg:items-center lg:gap-6 lg:p-7">
+              <Card key={item.title} className="min-w-0 border-border/70 py-0 shadow-none transition-colors hover:border-primary/25">
+                <CardContent className="flex h-full min-w-0 flex-col gap-5 p-5 sm:p-6 lg:flex-row lg:items-center lg:gap-6 lg:p-7">
                   <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary"><item.icon className="size-6" /></div>
-                  <div><p className="text-xs font-bold text-primary">۰{index + 1}</p><h3 className="mt-1 text-lg font-bold">{item.title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{item.text}</p></div>
+                  <div className="min-w-0"><p className="text-xs font-bold text-primary">۰{index + 1}</p><h3 className="mt-1 text-lg font-bold">{item.title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{item.text}</p></div>
                 </CardContent>
               </Card>
             ))}
@@ -99,15 +99,15 @@ export function HomeIdeas({
       </Container>
     </Section>
     <Section className="overflow-hidden py-0">
-      <Container className="grid max-w-none px-0 lg:grid-cols-2">
-        <div className="relative min-h-80 lg:min-h-[32rem]">
+      <Container className="grid max-w-none min-w-0 px-0 lg:grid-cols-2">
+        <div className="relative min-h-64 sm:min-h-80 lg:min-h-[32rem]">
           <Image src="/brand/campus-collaboration-v1.png" alt="همکاری مدرسان و متخصصان در محیط دانشگاه" fill className="object-cover" sizes="(max-width:1024px) 100vw, 50vw" />
         </div>
-        <div className="relative flex items-center overflow-hidden bg-chart-3 px-6 py-14 text-background sm:px-12 lg:px-16">
+        <div className="relative flex min-w-0 items-center overflow-hidden bg-chart-3 px-5 py-12 text-background sm:px-12 sm:py-14 lg:px-16">
           <MetamorphField tone="dark" density="sparse" className="opacity-20" />
-          <div className="relative z-[2] max-w-xl">
+          <div className="relative z-[2] w-full min-w-0 max-w-xl">
             <p className="text-xs font-bold text-background/55">یادگیری در بستر مسئله‌های واقعی</p>
-            <Heading level={2} className="mt-3 text-3xl leading-tight text-background sm:text-4xl">جایی برای پیوند دانش دانشگاهی و تجربه‌ی صنعت</Heading>
+            <Heading level={2} className="mt-3 text-3xl leading-tight break-words text-background sm:text-4xl">جایی برای پیوند دانش دانشگاهی و تجربه‌ی صنعت</Heading>
             <p className="mt-5 text-base leading-8 text-background/65">دوره‌ها با مشارکت مدرسان دانشگاه، مدیران و متخصصان طراحی می‌شوند تا آموخته‌ها از کلاس به تصمیم و اجرا برسند.</p>
             <Link
               href="/about"
@@ -124,10 +124,10 @@ export function HomeIdeas({
     </Section>
     <Section tone="muted" className="py-20 sm:py-24">
       <Container>
-        <div className="mb-10 flex items-end justify-between gap-4">
-          <div>
+        <div className="mb-10 flex min-w-0 items-end justify-between gap-4">
+          <div className="min-w-0">
             <p className="text-xs font-bold text-primary">دانش برای عمل</p>
-            <Heading level={2} className="mt-2 text-3xl sm:text-4xl">
+            <Heading level={2} className="mt-2 text-3xl break-words sm:text-4xl">
               <Link href="/insights" className="hover:text-primary">
                 {title}
               </Link>
@@ -137,13 +137,13 @@ export function HomeIdeas({
             href="/insights"
             className={cn(
               buttonVariants({ variant: "ghost" }),
-              "hidden gap-2 text-primary sm:inline-flex",
+              "hidden shrink-0 gap-2 text-primary sm:inline-flex",
             )}
           >
             همه بینش‌ها <ArrowLeft className="size-4" />
           </Link>
         </div>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10">
+        <div className="grid min-w-0 gap-8 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10">
           {ideaCards.map((article) => (
             <ArticleCard
               key={article.id}
@@ -178,7 +178,7 @@ export function HomeEvents({
           {title}
         </Heading>
         <Separator className="mx-auto mt-5 max-w-16 bg-primary" />
-        <div className="mt-10 grid gap-0 border-y border-border sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid min-w-0 gap-0 border-y border-border md:grid-cols-2 lg:grid-cols-4">
           {events.map((event) => (
             <EventCard key={event.id} {...event} variant="home" />
           ))}
@@ -213,7 +213,7 @@ export function HomeRest({
               {labels.intersectionsSubtitle}
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {intersections.map((topic) => (
               <IntersectionCard key={topic.id} {...topic} />
             ))}
@@ -223,9 +223,9 @@ export function HomeRest({
 
       <Section className="relative overflow-hidden py-20 sm:py-24">
         <MetamorphField tone="light" density="sparse" />
-        <Container className="relative z-[1]">
+        <Container className="relative z-[1] min-w-0">
           <div className="mx-auto mb-10 max-w-2xl text-center">
-            <Heading level={2}>{labels.moreThanDegree}</Heading>
+            <Heading level={2} className="break-words">{labels.moreThanDegree}</Heading>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
               {labels.moreThanDegreeBody}
             </p>
@@ -245,14 +245,14 @@ export function HomeRest({
           density="sparse"
           className="opacity-[0.4]"
         />
-        <Container className="relative z-[1] grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div className="max-w-3xl"><p className="text-xs font-bold text-background/60">همکاری با سازمان‌ها</p><Heading level={2} className="mt-3 text-background sm:text-5xl">
+        <Container className="relative z-[1] grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-12">
+          <div className="min-w-0 max-w-3xl"><p className="text-xs font-bold text-background/60">همکاری با سازمان‌ها</p><Heading level={2} className="mt-3 break-words text-background sm:text-5xl">
             {labels.hireTitle}
           </Heading>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-background/75 sm:text-lg">
             {labels.hireBody}
           </p>
-          </div><div>
+          </div><div className="shrink-0">
             <DotCta href="/professional" onDark>
               {labels.registerCta}
             </DotCta>
@@ -268,11 +268,11 @@ export function HomeRest({
           >
             {labels.missionTitle}
           </Heading>
-          <p className="mt-5 text-2xl font-bold leading-relaxed text-foreground sm:text-3xl">
+          <p className="mt-5 text-xl font-bold leading-relaxed break-words text-foreground sm:text-2xl md:text-3xl">
             {siteMission}
           </p>
-          <div className="mt-12 grid gap-6 border-t border-border pt-10 sm:grid-cols-3">
-            {stats.map((stat) => <div key={stat.id}><p className="text-3xl font-black text-primary sm:text-4xl"><AnimatedMetric value={stat.value} /></p><p className="mt-2 text-sm text-muted-foreground">{stat.label}</p></div>)}
+          <div className="mt-12 grid min-w-0 gap-6 border-t border-border pt-10 sm:grid-cols-3">
+            {stats.map((stat) => <div key={stat.id} className="min-w-0"><p className="text-3xl font-black text-primary sm:text-4xl"><AnimatedMetric value={stat.value} /></p><p className="mt-2 text-sm text-muted-foreground">{stat.label}</p></div>)}
           </div>
         </Container>
       </Section>

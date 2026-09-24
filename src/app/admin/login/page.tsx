@@ -54,13 +54,13 @@ function LoginForm() {
     <div dir="rtl" className="flex min-h-svh items-center justify-center bg-muted/40 px-4 py-12">
       <Card className="w-full max-w-md shadow-sm">
         <CardHeader className="space-y-3 text-center">
-          <div className="mx-auto relative size-14 overflow-hidden rounded-full bg-chart-3 ring-1 ring-border shadow-sm">
+          <div className="mx-auto relative size-14">
             <Image
               src="/brand/amirkabir.png"
               alt="دانشگاه صنعتی امیرکبیر"
               fill
               sizes="56px"
-              className="object-contain p-[15%]"
+              className="object-contain brightness-0"
               priority
             />
           </div>

@@ -95,13 +95,13 @@ export function AdminSidebar({ userName }: { userName: string }) {
               render={<Link href="/admin" />}
               className="data-active:bg-sidebar-accent"
             >
-              <span className="relative size-8 shrink-0 overflow-hidden rounded-lg bg-chart-3 ring-1 ring-sidebar-border">
+              <span className="relative size-8 shrink-0">
                 <Image
                   src="/brand/amirkabir.png"
                   alt=""
                   fill
                   sizes="32px"
-                  className="object-contain p-[15%]"
+                  className="object-contain brightness-0"
                   priority
                 />
               </span>

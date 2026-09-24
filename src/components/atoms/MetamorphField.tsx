@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 type MetamorphFieldProps = {
@@ -69,17 +72,30 @@ const EDGES_SPARSE: Edge[] = [
 const VIEW_W = 1200;
 const VIEW_H = 480;
 
+const ENABLE_MQ =
+  "(min-width: 768px) and (prefers-reduced-motion: no-preference)";
+
 /**
- * Decorative metamorphism field — dots joined by thin lines.
- * Place inside a `relative overflow-hidden` flex/grid surface.
- * The outer wrapper fills the parent; the SVG covers with landscape slice
- * so density stays proportional across wide hero/footer bands.
+ * Decorative constellation. Mounted only on desktop with motion allowed —
+ * SMIL/CSS motion was too expensive on phones.
  */
 export function MetamorphField({
   className,
   tone = "dark",
   density = "normal",
 }: MetamorphFieldProps) {
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia(ENABLE_MQ);
+    const sync = () => setEnabled(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  if (!enabled) return null;
+
   const nodes = density === "sparse" ? NODES_SPARSE : NODES_NORMAL;
   const edges = density === "sparse" ? EDGES_SPARSE : EDGES_NORMAL;
   const stroke =
@@ -87,11 +103,6 @@ export function MetamorphField({
   const fill =
     tone === "dark" ? "color-mix(in oklab, white 70%, transparent)" : "var(--primary)";
   const accent = tone === "dark" ? "var(--accent)" : "var(--primary)";
-
-  const targets = nodes.map((node, index) => ({
-    x: Math.max(24, Math.min(VIEW_W - 24, node.x + Math.sin(index * 1.7) * 28)),
-    y: Math.max(24, Math.min(VIEW_H - 24, node.y + Math.cos(index * 1.3) * 22)),
-  }));
 
   return (
     <div
@@ -109,7 +120,7 @@ export function MetamorphField({
         preserveAspectRatio="xMidYMid slice"
         focusable="false"
       >
-        <g className="metamorph-field__mesh" stroke={stroke} strokeWidth="0.9">
+        <g stroke={stroke} strokeWidth="0.9">
           {edges.map(([a, b], i) => {
             const n1 = nodes[a];
             const n2 = nodes[b];
@@ -121,98 +132,21 @@ export function MetamorphField({
                 y1={n1.y}
                 x2={n2.x}
                 y2={n2.y}
-                className="metamorph-field__line"
-                style={{ animationDelay: `${(i % 8) * 0.35}s` }}
-              >
-                <animate
-                  attributeName="x1"
-                  values={`${n1.x};${targets[a].x};${n1.x}`}
-                  dur={`${14 + (i % 4)}s`}
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="y1"
-                  values={`${n1.y};${targets[a].y};${n1.y}`}
-                  dur={`${14 + (i % 4)}s`}
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="x2"
-                  values={`${n2.x};${targets[b].x};${n2.x}`}
-                  dur={`${14 + (i % 4)}s`}
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="y2"
-                  values={`${n2.y};${targets[b].y};${n2.y}`}
-                  dur={`${14 + (i % 4)}s`}
-                  repeatCount="indefinite"
-                />
-              </line>
+                opacity="0.55"
+              />
             );
           })}
         </g>
         <g>
           {nodes.map((n, i) => (
-            <g key={`n-${i}`}>
-              {i % 5 === 0 ? (
-                <circle
-                  cx={n.x}
-                  cy={n.y}
-                  r="8"
-                  fill="none"
-                  stroke={accent}
-                  strokeWidth="0.7"
-                  opacity="0.45"
-                >
-                  <animate
-                    attributeName="cx"
-                    values={`${n.x};${targets[i].x};${n.x}`}
-                    dur={`${14 + (i % 4)}s`}
-                    repeatCount="indefinite"
-                  />
-                  <animate
-                    attributeName="cy"
-                    values={`${n.y};${targets[i].y};${n.y}`}
-                    dur={`${14 + (i % 4)}s`}
-                    repeatCount="indefinite"
-                  />
-                  <animate
-                    attributeName="r"
-                    values="5;11;5"
-                    dur={`${8 + (i % 3)}s`}
-                    repeatCount="indefinite"
-                  />
-                  <animate
-                    attributeName="opacity"
-                    values="0.45;0;0.45"
-                    dur={`${8 + (i % 3)}s`}
-                    repeatCount="indefinite"
-                  />
-                </circle>
-              ) : null}
-              <circle
-                cx={n.x}
-                cy={n.y}
-                r={n.r ?? 2}
-                fill={i % 5 === 0 ? accent : fill}
-                className="metamorph-field__dot"
-                style={{ animationDelay: `${(i % 6) * 0.4}s` }}
-              >
-                <animate
-                  attributeName="cx"
-                  values={`${n.x};${targets[i].x};${n.x}`}
-                  dur={`${14 + (i % 4)}s`}
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="cy"
-                  values={`${n.y};${targets[i].y};${n.y}`}
-                  dur={`${14 + (i % 4)}s`}
-                  repeatCount="indefinite"
-                />
-              </circle>
-            </g>
+            <circle
+              key={`n-${i}`}
+              cx={n.x}
+              cy={n.y}
+              r={n.r ?? 2}
+              fill={i % 5 === 0 ? accent : fill}
+              opacity={i % 5 === 0 ? 0.85 : 0.7}
+            />
           ))}
         </g>
       </svg>

@@ -74,7 +74,7 @@ export function CourseDetailTemplate({
       />
 
       <Section className="bg-gradient-to-b from-background to-muted/40">
-        <Container className="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.85fr)] lg:items-start lg:gap-12">
+        <Container className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,22rem)] lg:items-start lg:gap-12">
           <div className="space-y-8">
             <div className="overflow-hidden rounded-2xl ring-1 ring-border">
               <div className="relative aspect-[16/9] bg-muted">

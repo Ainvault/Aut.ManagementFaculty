@@ -66,18 +66,19 @@ export function SiteHeader({
     <>
       <header
         className={cn(
-          "site-header sticky top-0 z-50 pt-[env(safe-area-inset-top)] shadow-sm backdrop-blur-xl",
+          "site-header sticky top-0 z-50 pt-[env(safe-area-inset-top)] shadow-sm backdrop-blur-sm md:backdrop-blur-xl",
           isDark
             ? "border-b border-background/10 bg-chart-3/95 text-background"
             : "border-b border-border bg-card/95 text-foreground",
         )}
       >
-        <Container className="flex h-[4.5rem] items-center justify-start gap-3 sm:h-20 sm:gap-5" dir="rtl">
+        <Container className="flex h-[4.5rem] min-w-0 items-center justify-start gap-2 sm:h-20 sm:gap-5" dir="rtl">
           <BrandLogo
             href={brandHref}
             title={brandTitle}
             subtitle={brandSubtitle}
             onDark={isDark}
+            className="max-w-[min(100%,14rem)] sm:max-w-[min(100%,20rem)]"
           />
 
           <nav

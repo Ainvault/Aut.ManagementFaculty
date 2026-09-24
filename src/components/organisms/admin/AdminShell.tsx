@@ -35,13 +35,13 @@ export function AdminShell({
             <Separator orientation="vertical" className="me-1 data-[orientation=vertical]:h-4" />
             <div className="flex min-w-0 flex-1 items-center justify-between gap-3">
               <div className="flex min-w-0 items-center gap-2">
-                <span className="relative size-6 shrink-0 overflow-hidden rounded-full bg-chart-3 ring-1 ring-border md:hidden">
+                <span className="relative size-6 shrink-0 md:hidden">
                   <Image
                     src="/brand/amirkabir.png"
                     alt=""
                     fill
                     sizes="24px"
-                    className="object-contain p-[15%]"
+                    className="object-contain brightness-0"
                   />
                 </span>
                 <p className="truncate text-sm font-medium text-muted-foreground">

@@ -23,22 +23,23 @@ export function ProgramCarousel({
     align: "start",
     direction: "rtl",
     loop: false,
+    containScroll: "trimSnaps",
   });
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   return (
-    <div>
-      <div className="mb-5 flex items-end justify-between gap-4">
+    <div className="min-w-0">
+      <div className="mb-5 flex min-w-0 items-end justify-between gap-4">
         {!hideTitle && title ? (
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          <h2 className="min-w-0 text-2xl font-bold tracking-tight break-words sm:text-3xl">
             {title}
           </h2>
         ) : (
           <span />
         )}
-        <div className="flex gap-1">
+        <div className="flex shrink-0 gap-1">
           <Button
             type="button"
             variant="outline"
@@ -59,12 +60,12 @@ export function ProgramCarousel({
           </Button>
         </div>
       </div>
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-5">
+      <div className="min-w-0 overflow-hidden" ref={emblaRef}>
+        <div className="flex gap-4 sm:gap-5">
           {programs.map((program) => (
             <div
               key={program.id}
-              className="min-w-0 shrink-0 basis-[88%] sm:basis-[42%] lg:basis-[30%]"
+              className="min-w-0 shrink-0 grow-0 basis-[85%] sm:basis-[45%] lg:basis-[31%]"
             >
               <ProgramCard program={program} />
             </div>
