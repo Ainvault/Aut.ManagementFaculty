@@ -13,6 +13,8 @@ env:
   NETWORK_NAME: shared_web_network
   # Public hostname (Nginx Proxy Manager → this container:3000)
   PUBLIC_HOST: aut.insaight.net
+  DOCKER_BUILDKIT: "1"
+  COMPOSE_DOCKER_CLI_BUILD: "1"
 
 jobs:
   deploy:
@@ -29,7 +31,11 @@ jobs:
             || docker network create "$NETWORK_NAME"
 
       - name: Build image
-        run: docker build -t "$IMAGE_NAME" .
+        run: |
+          docker build \
+            --progress=plain \
+            -t "$IMAGE_NAME" \
+            .
 
       - name: Restart container
         env:
