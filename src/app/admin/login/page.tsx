@@ -60,7 +60,7 @@ function LoginForm() {
               alt="دانشگاه صنعتی امیرکبیر"
               fill
               sizes="56px"
-              className="object-cover"
+              className="object-contain p-[15%]"
               priority
             />
           </div>

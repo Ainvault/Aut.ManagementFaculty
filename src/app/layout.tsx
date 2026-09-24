@@ -64,12 +64,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: t("homeDescription"),
     icons: {
-      icon: [
-        { url: "/brand/amirkabir.png", sizes: "32x32", type: "image/png" },
-        { url: "/brand/amirkabir.png", sizes: "192x192", type: "image/png" },
-      ],
+      icon: [{ url: "/brand/amirkabir.png", type: "image/png" }],
       apple: [{ url: "/brand/amirkabir.png", type: "image/png" }],
-      shortcut: ["/brand/amirkabir.png"],
     },
     openGraph: {
       type: "website",

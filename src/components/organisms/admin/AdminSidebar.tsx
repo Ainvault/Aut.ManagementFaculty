@@ -30,7 +30,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { LogoutButton } from "@/components/organisms/admin/LogoutButton";
@@ -88,7 +87,7 @@ export function AdminSidebar({ userName }: { userName: string }) {
 
   return (
     <Sidebar side="right" collapsible="icon" variant="inset">
-      <SidebarHeader className="gap-3 p-3">
+      <SidebarHeader className="h-(--header-height) shrink-0 justify-center gap-0 border-b border-sidebar-border p-0 px-3">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
@@ -102,7 +101,7 @@ export function AdminSidebar({ userName }: { userName: string }) {
                   alt=""
                   fill
                   sizes="32px"
-                  className="object-cover"
+                  className="object-contain p-[15%]"
                   priority
                 />
               </span>
@@ -116,8 +115,6 @@ export function AdminSidebar({ userName }: { userName: string }) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-
-      <SidebarSeparator />
 
       <SidebarContent>
         {NAV_GROUPS.map((group) => (

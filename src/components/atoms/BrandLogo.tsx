@@ -13,7 +13,7 @@ type BrandLogoProps = {
   compact?: boolean;
 };
 
-/** AUT seal on a dark disc — works on light and dark headers (asset is white-on-black). */
+/** AUT seal — white mark on transparent; sits on brand disc. */
 export function BrandLogo({
   href = "/",
   title,
@@ -34,7 +34,7 @@ export function BrandLogo({
       <span
         className={cn(
           "relative shrink-0 overflow-hidden rounded-full bg-chart-3 shadow-sm ring-1",
-          onDark ? "ring-background/20" : "ring-border",
+          onDark ? "ring-background/25" : "ring-border",
           compact ? "size-9" : "size-11 sm:size-12",
         )}
       >
@@ -44,7 +44,7 @@ export function BrandLogo({
           fill
           priority
           sizes="48px"
-          className="object-cover"
+          className="object-contain p-[18%]"
         />
       </span>
       <span className="min-w-0 text-start leading-tight">
