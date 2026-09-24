@@ -1,0 +1,28 @@
+---
+description: UI architecture — thin pages, extract components, data via lib
+alwaysApply: true
+---
+
+# UI architecture
+
+Adapted from NoorClinic Front.Patient.App; paths match this repo.
+
+## New work
+
+- **Pages** (`src/app/**/page.tsx`): orchestration only — params, compose templates/sections, wire handlers.
+- **UI**: put reusable or substantial sections in `src/components/molecules` or `src/components/organisms` (extract when reusable or roughly >80 lines of JSX). Templates live in `src/components/templates`. Primitives in `src/components/atoms` / `src/components/ui` (shadcn).
+- **Data**: only through `src/lib/data/*` (and Route Handlers that call the same accessors). Do not fetch ad-hoc from page files beyond those accessors.
+- Shared domain types/helpers live under `src/lib/`.
+
+## Design consistency
+
+- Before UI changes, follow `docs/design-system-rules.md` and shadcn theme tokens in `src/app/globals.css` (`--primary`, `--accent`, …).
+- Skills: `shadcn-ui`, `design-system-rules` (methodology — keep AUT palette in shadcn CSS vars).
+
+## Extending existing fat pages
+
+Do not grow a large page further with new inline UI. Extract the new piece into a component first.
+
+## Deferred
+
+Wholesale refactors of existing fat pages are out of scope unless the feature requires it.

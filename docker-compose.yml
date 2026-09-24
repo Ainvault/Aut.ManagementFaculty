@@ -1,0 +1,25 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aut-management-faculty:latest
+    container_name: aut-management-faculty
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      # Optional override; falls back to DATABASE_URL in src/lib/db.ts
+      - DATABASE_URL=${DATABASE_URL:-}
+    # No published ports. Reachable only on shared_web_network
+    # Nginx Proxy Manager: aut.insaight.net → http://aut-management-faculty:3000
+    expose:
+      - "3000"
+    networks:
+      - shared_web_network
+
+networks:
+  shared_web_network:
+    external: true
+    name: shared_web_network

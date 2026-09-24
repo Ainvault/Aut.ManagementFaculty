@@ -1,0 +1,59 @@
+# dependencies & build output (rebuilt inside the image)
+node_modules
+.next
+out
+build
+dist
+
+# version control & CI
+.git
+.gitignore
+.github
+
+# editor / IDE
+.vscode
+.idea
+.cursor
+.agents
+.claude
+skills
+
+# project meta / docs (keep messages/ — required by next-intl at build time)
+memory-bank
+docs
+*.md
+PLAYBOOK.md
+PROJECT-INIT.md
+mit-sites-reconstruction-spec.md
+skills-lock.json
+components.json
+run-mvp.bat
+scripts
+db
+
+# docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# logs & debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs
+*.log
+
+# typescript / next generated
+*.tsbuildinfo
+next-env.d.ts
+
+# env & local data (must not leak into image)
+.env
+.env.local
+.env*.local
+data
+
+# OS files
+.DS_Store
+Thumbs.db

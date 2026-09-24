@@ -1,0 +1,62 @@
+name: Build & Deploy (Self-Hosted)
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: aut-management-faculty:latest
+  CONTAINER_NAME: aut-management-faculty
+  NETWORK_NAME: shared_web_network
+  # Public hostname (Nginx Proxy Manager → this container:3000)
+  PUBLIC_HOST: aut.insaight.net
+
+jobs:
+  deploy:
+    name: Build and run on server
+    runs-on: [self-hosted, linux]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure shared_web_network exists
+        run: |
+          docker network inspect "$NETWORK_NAME" >/dev/null 2>&1 \
+            || docker network create "$NETWORK_NAME"
+
+      - name: Build image
+        run: docker build -t "$IMAGE_NAME" .
+
+      - name: Restart container
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          set -euo pipefail
+          docker rm -f "$CONTAINER_NAME" 2>/dev/null || true
+
+          RUN_ARGS=(
+            -d
+            --name "$CONTAINER_NAME"
+            --restart unless-stopped
+            --network "$NETWORK_NAME"
+            -e NODE_ENV=production
+            -e PORT=3000
+            -e HOSTNAME=0.0.0.0
+            --expose 3000
+          )
+
+          if [ -n "${DATABASE_URL:-}" ]; then
+            RUN_ARGS+=(-e "DATABASE_URL=${DATABASE_URL}")
+          fi
+
+          docker run "${RUN_ARGS[@]}" "$IMAGE_NAME"
+
+          echo "Deployed ${CONTAINER_NAME} on ${NETWORK_NAME}"
+          echo "Point Nginx Proxy Manager: ${PUBLIC_HOST} → http://${CONTAINER_NAME}:3000"
+
+      - name: Prune dangling images
+        run: docker image prune -f

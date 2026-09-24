@@ -1,0 +1,29 @@
+# Decision Log
+
+<!-- append-only. هیچ ردیفی پاک یا ویرایش نمی‌شود؛ فقط اضافه می‌شود. -->
+
+| تاریخ | تصمیم | دلیل |
+|---|---|---|
+| 2026-09-21 | D1 — Next.js App Router + TS + Tailwind + shadcn | SSR/SEO و سرعت پیاده‌سازی UI دانشگاهی |
+| 2026-09-21 | D2 — Mock-first با `lib/data` + Route Handlers | آماده‌سازی برای DB بدون قفل UI |
+| 2026-09-21 | D3 — next-intl فقط `fa` RTL فعلاً | مخاطب فارسی؛ ساختار i18n آماده |
+| 2026-09-21 | D4 — `/` Sloan-like و `/professional` Professional-like | تأیید Discovery؛ معیار اصلی Sloan |
+| 2026-09-21 | D5 — Atomic Design اجباری | اتومیک بودن و استانداردسازی کامپوننت‌ها |
+| 2026-09-21 | D6 — SEO از روز اول (metadata + JSON-LD) | سایت کشف‌پذیر برای ثبت‌نام‌کنندگان بالقوه |
+| 2026-09-21 | D7 — پالت هویت AUT نه کپی رنگ MIT | برند دانشگاه امیرکبیر |
+| 2026-09-22 | D8 — مرجع زنده Sloan در `docs/reference/mitsloan/` | IA صفحه به صفحه برای بازسازی؛ برگ‌های مقاله/رویداد به‌صورت الگو |
+| 2026-09-22 | D9 — فاز ۱: همه مسیرهای منو/فوتر با mock + polish هوم | بستن ۴۰۴ها؛ بدون DB/پرداخت |
+| 2026-09-22 | D10 — Design system با توکن CSS + کلاس‌های `ds-*` | ظاهر دانشگاهی یکدست؛ حرکت transform/opacity؛ بدون فانتزی؛ هم‌راستا با vercel skill |
+| 2026-09-22 | D11 — بازسازی ۱:۱ بصری از تم زنده Sloan (فارسی RTL) | استخراج پالت/CTA/IA از mitsloan.mit.edu؛ Program Selector در overlay آکادمیک؛ نام‌گذاری AUT |
+| 2026-09-22 | D12 — PostgreSQL تست روی `138.124.117.71`؛ جزئیات در `docs/03-database.md` | محیط تست؛ credential در docs قابل‌قبول؛ امنیت بعداً |
+| 2026-09-22 | D13 — پلن کامل توسعه در `docs/04-development-plan.md` (A–H؛ SQL/`pg`؛ ادمین در همان Next) | اجرای مرحله‌ای با ایجنت بدون حدس معماری؛ ORM اختیاری بعداً |
+| 2026-09-22 | D14 — Schema و migration با SQL خام + runner سادهٔ `db/migrate.mjs` (نسخه‌گذاری در `schema_migrations`؛ هر فایل یک تراکنش؛ + `set_updated_at` trigger) | ایدمپوتنت و تکرارپذیر؛ بدون وابستگی ORM در فاز اول |
+| 2026-09-22 | D15 — Seed با `db/seed.mjs` که مستقیم mock های `.ts` و مپر `src/lib/db/mappers.ts` را با type-stripping بومی Node 24 می‌خواند؛ upsert با `ON CONFLICT (id)` | بدون وابستگی tsx/باندل؛ یک منبع مپر برای seed و خواندن آیندهٔ `lib/data` |
+| 2026-09-22 | D16 — Auth ادمین: `proxy.ts` فقط حضور cookie را چک (Next 16؛ جانشین middleware)، تأیید واقعی session در layout-گارد `(guard)` با `verifySession()`؛ رمز با scrypt داخلی Node؛ cookie `admin_session` HttpOnly | هم‌راستا با مستندات Next 16 (proxy نباید به ماژول‌های مشترک/DB وابسته باشد)؛ محافظ واقعی در layout، نه فقط proxy |
+| 2026-09-22 | D17 — Validation با Zod v4 (فیلدهای create vs patch جدا؛ patch با `partial()` تا فیلدهای حذف‌شده بازنویسی نشوند؛ پاسخ خطای یکپارچه `{ error }` با 400/401/404/409/500) | طبق پیشنهاد پلن (فاز D)؛ `zod@^4.6.5` نصب شد |
+| 2026-09-22 | D18 — قانون «حداکثر یک مقالهٔ ویژهٔ منتشرشده» در لایهٔ اپ هم پیاده شد: خطای یکتای ایندکس `articles_one_featured` در handler به 409 Persian ترجمه می‌شود | اعمال DB (ایندکس جزئی فاز A) authority است؛ اپ فقط خطای قابل‌فهم می‌دهد |
+| 2026-09-22 | D19 — برای write API ادمین بقیهٔ entityها، سازنده‌های مشترک SQL (`buildInsert`/`buildUpdate` در `src/lib/api/crud.ts`) استفاده شد؛ JSONB (highlights/body) همیشه با `JSON.stringify` ارسال می‌شود چون pg آرایهٔ JS را به عنوان array ارسال می‌کند نه JSON؛ پاسخ‌ها camelCase + `published` | کاهش تکرار؛ ثبات در ۲۰+ route |
+| 2026-09-24 | D20 — فاز F (بخش ۱): shell ادمین در layout-گارد `(guard)` (ناو + خروج) + داشبورد (شمارش entityها + لیدهای اخیر با تغییر status) + CRUD دوره‌ها (`/admin/courses` list با فیلتر search/published در URL، new، `[id]/edit`، توگل publish، حذف با Dialog)؛ لایه دادهٔ ادمین `lib/data/admin/courses.ts` + GET های ادمین (`/api/admin/courses`, `/api/admin/courses/[id]`)؛ UI فقط با shadcn (Table/Select/Dialog بر پایه Base UI؛ افزودن primitive با CLI، بدون دست‌نویسی) | فاز F طبق پلن؛ صفحات نازک + organisms در `components/organisms/admin/*`؛ افزودن primitive با `npx shadcn@latest add` تا هم‌شکل بماند |
+| 2026-09-24 | D21 — ادمین عمومی با رجیستری `ENTITIES` در `src/lib/admin/entities.ts` (fields/columns/apiPath/idColumn/preview/list/get) + صفحات یکپارچهٔ داینامیک `/admin/[entity]` (list/new/[id]/edit) به‌جای صفحهٔ جدا برای هر entity؛ orgهای عمومی `GenericTable` (سرور) / `GenericFilters`، `GenericForm`، `GenericDeleteDialog`، `PublishToggle` (کلاینت)؛ استاتیک‌ها (`courses`، `login`، `registrations`) بر داینامیک ارجح‌ند؛ `GenericForm` فقط **نسخهٔ قابل‌serialize** از spec را می‌گیرد چون توابع (list/get/preview) نمی‌توانند به Client Component برسند | ۱۰ entity with شش شکل رکورد متفاوت = یک فرمول؛ کاهش تکرار شدید؛ D19/D20 تعمیم یافته | 
+| 2026-09-24 | D22 — فاز G/H: ثبت‌نام عمومی در `POST /api/registrations` (اسکیمای `publicRegistrationSchema` با zod v4؛ یافتن `course_id` از slug؛ عموم بدون وضعیت) + صفحهٔ `/admin/registrations` (فیلتر search/status در URL، تغییر status، حذف)؛ لایه‌های `lib/data/admin/registrations.ts` و `lib/validation/public.ts`؛ و **بازاعتبارسنجی (Phase H)** با `revalidateSite()` → `revalidatePath("/", "layout")` که در `buildInsert`/`buildUpdate` فراخوانی می‌شود و دستی در DELETE های raw-SQL و route های دوره/مقاله اضافه شد | فرم ثبت‌نام واقعاً لید می‌سازد تا ادمین دنبال کند؛ صفحه‌های استاتیک عمومی با cache قدیمی پس از هر تغییر ادمین باید invalidate شوند |
+| 2026-09-24 | D23 — پایان H: حذف کامل وابستگی runtime به mock برای محتوای با تیبل: `intersections`، `stats`، `testimonials` از DB می‌آیند (`getTopics`، `getSiteStats`، `getTestimonials` در `lib/data/site.ts`؛ `HomeRest` با prop `stats`)؛ هویت/ناو استاتیکِ بدون‌تیبل به ماژول مستقل `src/lib/site-config.ts` منتقل شد؛ `src/lib/mock/site.ts` فقط برای seed باقی ماند (کامنت هدر دارد)؛ ایندکس‌ها با `db/migrations/002_indexes.sql` (leads/articles/events/programs/courses)؛ اسکریپت `scripts/smoke.mjs` (۴ API عمومی + login + create/delete stat) | معیار پذیرش C/H: runtime هیچ import مستقیمی از mock ندارد؛ config بدون تیبل نباید «دادهٔ mock» تلقی شود؛ smoke خواندنی + یک write ادمین می‌سنجد |

@@ -1,0 +1,15 @@
+---
+description: Bootstrap when starting UI/design work in this repo
+alwaysApply: true
+---
+
+# Design & UI bootstrap
+
+When the task touches UI, styling, layout, or visual consistency:
+
+1. Read `docs/design-system-rules.md` and skill `shadcn-ui`.
+2. Use **only** shadcn theme tokens + Tailwind (`bg-primary`, `text-muted-foreground`, `Card`, `Button`, …). Never `ds-*` or `--brand-*`.
+3. Add missing primitives with `npx shadcn@latest add <name>` (see https://ui.shadcn.com/docs/installation).
+4. Follow `.cursor/rules/ui-architecture.mdc` (thin pages, atomic folders).
+5. Load skills when relevant: `shadcn-ui`, `frontend-excellence`, `vercel-react-best-practices`.
+6. Behavioral playbook remains `PLAYBOOK.md` + `docs/state/*` for task scope.
