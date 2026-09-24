@@ -54,17 +54,22 @@ const iranSans = localFont({
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("meta");
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://aut.insaight.net";
   return {
-    metadataBase: new URL("https://openedu.aut.ac.ir"),
+    metadataBase: new URL(siteUrl),
     title: {
       default: t("homeTitle"),
       template: `%s | ${t("homeTitle")}`,
     },
     description: t("homeDescription"),
     icons: {
-      icon: [{ url: "/brand/amirkabir.png", type: "image/png" }],
+      icon: [
+        { url: "/brand/amirkabir.png", sizes: "32x32", type: "image/png" },
+        { url: "/brand/amirkabir.png", sizes: "192x192", type: "image/png" },
+      ],
       apple: [{ url: "/brand/amirkabir.png", type: "image/png" }],
-      shortcut: "/brand/amirkabir.png",
+      shortcut: ["/brand/amirkabir.png"],
     },
     openGraph: {
       type: "website",

@@ -30,6 +30,7 @@ jobs:
         env:
           DISABLE_REACT_COMPILER: "1"
           NEXT_TELEMETRY_DISABLED: "1"
+          NEXT_PUBLIC_SITE_URL: https://aut.insaight.net
         run: |
           set -euo pipefail
           npm ci --no-audit --no-fund
@@ -46,16 +47,22 @@ jobs:
           # Flatten standalone to artifact root (includes .next + node_modules)
           cp -a .next/standalone/. prebuilt/
 
-          # Static assets + public (required next to standalone)
-          cp -a .next/static prebuilt/.next/static
+          # Next must NOT see a root-level ./static (legacy); only ./.next/static
+          rm -rf prebuilt/static
+          rm -rf prebuilt/.next/static
+          mkdir -p prebuilt/.next
+          cp -a .next/static/. prebuilt/.next/static/
+
           if [ -d public ]; then
+            rm -rf prebuilt/public
             cp -a public prebuilt/public
           else
             mkdir -p prebuilt/public
           fi
 
-          # Dockerfile travels with the artifact so deploy context is self-contained
+          # Build recipe for deploy job (excluded from image via .dockerignore)
           cp Dockerfile.prebuilt prebuilt/Dockerfile
+          printf '%s\n' 'Dockerfile' '.dockerignore' > prebuilt/.dockerignore
 
           echo "Assembled tree:"
           ls -la prebuilt
@@ -64,6 +71,11 @@ jobs:
           test -f prebuilt/.next/BUILD_ID
           test -d prebuilt/.next/static
           test -d prebuilt/node_modules
+          # Fail if legacy root static leaked in
+          if [ -e prebuilt/static ]; then
+            echo "ERROR: root-level static/ must not exist" >&2
+            exit 1
+          fi
 
       - uses: actions/upload-artifact@v4
         with:
@@ -102,7 +114,7 @@ jobs:
 
           # Confirm BUILD_ID is actually inside the image
           docker run --rm --entrypoint sh "$IMAGE_NAME" -c \
-            'test -f /app/.next/BUILD_ID && test -f /app/server.js && ls -la /app/.next'
+            'test -f /app/.next/BUILD_ID && test -f /app/server.js && test -d /app/.next/static && test ! -e /app/static && ls -la /app && ls -la /app/.next'
 
       - name: Restart container
         env:
