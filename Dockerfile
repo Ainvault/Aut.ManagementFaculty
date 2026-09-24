@@ -1,11 +1,8 @@
-# syntax=docker/dockerfile:1
-
 # ---- Dependencies ----
 FROM node:22-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci
+RUN npm ci
 
 # ---- Builder ----
 FROM node:22-alpine AS builder
@@ -13,7 +10,6 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 # Skip React Compiler in image builds (big CPU/RAM cost on self-hosted runners)
 ENV DISABLE_REACT_COMPILER=1
-# Cap parallelism a bit so Turbopack/webpack don't thrash low-RAM hosts
 ENV NODE_OPTIONS=--max-old-space-size=3072
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
