@@ -21,7 +21,6 @@ export default async function ProfessionalLayout({
         searchLabel={t("nav.search")}
         brandTitle={siteShortName}
         brandSubtitle={t("nav.brandSubtitle")}
-        brandHref="/professional"
         academicsLabel={t("nav.academics")}
         programSelectorTitle={t("home.programSelectorTitle")}
         executiveLabel={t("home.executiveLabel")}

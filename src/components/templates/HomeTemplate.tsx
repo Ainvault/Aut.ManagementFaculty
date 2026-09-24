@@ -98,33 +98,46 @@ export function HomeIdeas({
         </div>
       </Container>
     </Section>
-    <Section className="overflow-hidden py-0">
-      <Container className="grid max-w-none min-w-0 px-0 lg:grid-cols-2">
-        <div className="relative min-h-64 sm:min-h-80 lg:min-h-[32rem]">
-          <Image src="/brand/campus-collaboration-v1.png" alt="همکاری مدرسان و متخصصان در محیط دانشگاه" fill className="object-cover" sizes="(max-width:1024px) 100vw, 50vw" />
+    <section className="overflow-hidden bg-chart-3 text-background">
+      <div className="grid min-w-0 lg:grid-cols-2">
+        <div className="relative z-[1] order-2 flex min-w-0 flex-col justify-center gap-4 px-5 py-8 sm:gap-5 sm:px-10 sm:py-10 lg:order-1 lg:min-h-[22rem] lg:px-14 lg:py-12">
+          <p className="text-xs font-bold text-background/55">
+            یادگیری در بستر مسئله‌های واقعی
+          </p>
+          <Heading
+            level={2}
+            className="text-2xl leading-snug break-words text-background sm:text-3xl lg:text-[2.125rem] lg:leading-snug"
+          >
+            جایی برای پیوند دانش دانشگاهی و تجربه‌ی صنعت
+          </Heading>
+          <p className="max-w-xl text-sm leading-7 text-background/70 sm:text-base sm:leading-8">
+            دوره‌ها با مشارکت مدرسان دانشگاه، مدیران و متخصصان طراحی می‌شوند تا
+            آموخته‌ها از کلاس به تصمیم و اجرا برسند.
+          </p>
+          <Link
+            href="/about"
+            className={cn(
+              buttonVariants({ variant: "outline" }),
+              "mt-1 w-fit border-background/30 bg-transparent text-background hover:bg-background hover:text-foreground",
+            )}
+          >
+            آشنایی با رویکرد ما
+          </Link>
         </div>
-        <div className="relative flex min-w-0 items-center overflow-hidden bg-chart-3 px-5 py-12 text-background sm:px-12 sm:py-14 lg:px-16">
-          <MetamorphField tone="dark" density="sparse" className="opacity-20" />
-          <div className="relative z-[2] w-full min-w-0 max-w-xl">
-            <p className="text-xs font-bold text-background/55">یادگیری در بستر مسئله‌های واقعی</p>
-            <Heading level={2} className="mt-3 text-3xl leading-tight break-words text-background sm:text-4xl">جایی برای پیوند دانش دانشگاهی و تجربه‌ی صنعت</Heading>
-            <p className="mt-5 text-base leading-8 text-background/65">دوره‌ها با مشارکت مدرسان دانشگاه، مدیران و متخصصان طراحی می‌شوند تا آموخته‌ها از کلاس به تصمیم و اجرا برسند.</p>
-            <Link
-              href="/about"
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "mt-7 border-background/25 bg-transparent text-background hover:bg-background hover:text-foreground",
-              )}
-            >
-              آشنایی با رویکرد ما
-            </Link>
-          </div>
+        <div className="relative order-1 aspect-[16/10] min-h-0 lg:order-2 lg:aspect-auto lg:min-h-full lg:self-stretch">
+          <Image
+            src="/brand/campus-collaboration-v1.png"
+            alt="همکاری مدرسان و متخصصان در محیط دانشگاه"
+            fill
+            className="object-cover"
+            sizes="(max-width:1024px) 100vw, 50vw"
+          />
         </div>
-      </Container>
-    </Section>
-    <Section tone="muted" className="py-20 sm:py-24">
+      </div>
+    </section>
+    <Section tone="muted" className="pt-12 pb-16 sm:pt-14 sm:pb-20">
       <Container>
-        <div className="mb-10 flex min-w-0 items-end justify-between gap-4">
+        <div className="mb-8 flex min-w-0 flex-col gap-3 sm:mb-10 sm:flex-row sm:items-end sm:gap-6">
           <div className="min-w-0">
             <p className="text-xs font-bold text-primary">دانش برای عمل</p>
             <Heading level={2} className="mt-2 text-3xl break-words sm:text-4xl">
@@ -137,7 +150,7 @@ export function HomeIdeas({
             href="/insights"
             className={cn(
               buttonVariants({ variant: "ghost" }),
-              "hidden shrink-0 gap-2 text-primary sm:inline-flex",
+              "w-fit shrink-0 gap-2 text-primary",
             )}
           >
             همه بینش‌ها <ArrowLeft className="size-4" />

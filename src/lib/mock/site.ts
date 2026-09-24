@@ -40,7 +40,6 @@ export const homeNav: NavItem[] = [
 ];
 
 export const professionalNav: NavItem[] = [
-  { label: "صفحه اصلی", href: "/" },
   {
     label: "فهرست دوره‌ها",
     href: "/professional#programs",
