@@ -11,27 +11,72 @@ env:
   IMAGE_NAME: aut-management-faculty:latest
   CONTAINER_NAME: aut-management-faculty
   NETWORK_NAME: shared_web_network
-  # Public hostname (Nginx Proxy Manager → this container:3000)
   PUBLIC_HOST: aut.insaight.net
   # Self-hosted runner has no docker-buildx; force classic builder
   DOCKER_BUILDKIT: "0"
 
 jobs:
-  deploy:
-    name: Build and run on server
-    runs-on: [self-hosted, linux]
-
+  # Heavy Next.js compile on GitHub-hosted runners (not the InsAIght box)
+  build:
+    name: Build (ubuntu)
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install & build
+        env:
+          DISABLE_REACT_COMPILER: "1"
+          CI_FAST_BUILD: "1"
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: |
+          set -euo pipefail
+          npm ci --no-audit --no-fund
+          npm run build
+          test -f .next/standalone/server.js
+
+      - name: Stage standalone artifact
+        run: |
+          set -euo pipefail
+          mkdir -p prebuilt
+          cp -a .next/standalone prebuilt/standalone
+          cp -a .next/static prebuilt/static
+          cp -a public prebuilt/public
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: next-standalone
+          path: prebuilt/
+          retention-days: 1
+
+  # Server only packs a tiny image + restarts the container
+  deploy:
+    name: Deploy (self-hosted)
+    runs-on: [self-hosted, linux]
+    needs: build
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: next-standalone
+          path: prebuilt
 
       - name: Ensure shared_web_network exists
         run: |
           docker network inspect "$NETWORK_NAME" >/dev/null 2>&1 \
             || docker network create "$NETWORK_NAME"
 
-      - name: Build image
-        run: docker build -t "$IMAGE_NAME" .
+      - name: Build image from prebuilt
+        run: |
+          test -f prebuilt/standalone/server.js
+          docker build -f Dockerfile.prebuilt -t "$IMAGE_NAME" .
 
       - name: Restart container
         env:
