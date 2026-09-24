@@ -12,11 +12,9 @@ env:
   CONTAINER_NAME: aut-management-faculty
   NETWORK_NAME: shared_web_network
   PUBLIC_HOST: aut.insaight.net
-  # Self-hosted runner has no docker-buildx; force classic builder
   DOCKER_BUILDKIT: "0"
 
 jobs:
-  # Heavy Next.js compile on GitHub-hosted runners (not the InsAIght box)
   build:
     name: Build (ubuntu)
     runs-on: ubuntu-latest
@@ -37,30 +35,49 @@ jobs:
           npm ci --no-audit --no-fund
           npm run build
           test -f .next/standalone/server.js
+          test -f .next/BUILD_ID
 
-      - name: Stage standalone artifact
+      - name: Assemble runnable standalone tree
         run: |
           set -euo pipefail
+          rm -rf prebuilt
           mkdir -p prebuilt
-          cp -a .next/standalone prebuilt/standalone
-          cp -a .next/static prebuilt/static
-          cp -a public prebuilt/public
+
+          # Flatten standalone to artifact root (includes .next + node_modules)
+          cp -a .next/standalone/. prebuilt/
+
+          # Static assets + public (required next to standalone)
+          cp -a .next/static prebuilt/.next/static
+          if [ -d public ]; then
+            cp -a public prebuilt/public
+          else
+            mkdir -p prebuilt/public
+          fi
+
+          # Dockerfile travels with the artifact so deploy context is self-contained
+          cp Dockerfile.prebuilt prebuilt/Dockerfile
+
+          echo "Assembled tree:"
+          ls -la prebuilt
+          ls -la prebuilt/.next
+          test -f prebuilt/server.js
+          test -f prebuilt/.next/BUILD_ID
+          test -d prebuilt/.next/static
+          test -d prebuilt/node_modules
 
       - uses: actions/upload-artifact@v4
         with:
           name: next-standalone
           path: prebuilt/
           retention-days: 1
+          include-hidden-files: true
 
-  # Server only packs a tiny image + restarts the container
   deploy:
     name: Deploy (self-hosted)
     runs-on: [self-hosted, linux]
     needs: build
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
-      - uses: actions/checkout@v4
-
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
@@ -72,16 +89,20 @@ jobs:
           docker network inspect "$NETWORK_NAME" >/dev/null 2>&1 \
             || docker network create "$NETWORK_NAME"
 
-      - name: Build image from prebuilt
+      - name: Verify artifact & build image
         run: |
           set -euo pipefail
-          test -f prebuilt/standalone/server.js
-          test -f prebuilt/standalone/.next/BUILD_ID
-          test -d prebuilt/standalone/node_modules
-          test -d prebuilt/static
-          # Context = prebuilt/ so root .dockerignore cannot strip standalone/.next
-          docker build -f Dockerfile.prebuilt -t "$IMAGE_NAME" prebuilt
+          test -f prebuilt/server.js
+          test -f prebuilt/.next/BUILD_ID
+          test -d prebuilt/.next/static
+          test -d prebuilt/node_modules
+          test -f prebuilt/Dockerfile
 
+          docker build -t "$IMAGE_NAME" prebuilt
+
+          # Confirm BUILD_ID is actually inside the image
+          docker run --rm --entrypoint sh "$IMAGE_NAME" -c \
+            'test -f /app/.next/BUILD_ID && test -f /app/server.js && ls -la /app/.next'
 
       - name: Restart container
         env:
@@ -106,6 +127,8 @@ jobs:
           fi
 
           docker run "${RUN_ARGS[@]}" "$IMAGE_NAME"
+          sleep 2
+          docker logs "$CONTAINER_NAME" 2>&1 | tail -n 30
 
           echo "Deployed ${CONTAINER_NAME} on ${NETWORK_NAME}"
           echo "Point Nginx Proxy Manager: ${PUBLIC_HOST} → http://${CONTAINER_NAME}:3000"
