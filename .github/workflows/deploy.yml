@@ -74,8 +74,14 @@ jobs:
 
       - name: Build image from prebuilt
         run: |
+          set -euo pipefail
           test -f prebuilt/standalone/server.js
-          docker build -f Dockerfile.prebuilt -t "$IMAGE_NAME" .
+          test -f prebuilt/standalone/.next/BUILD_ID
+          test -d prebuilt/standalone/node_modules
+          test -d prebuilt/static
+          # Context = prebuilt/ so root .dockerignore cannot strip standalone/.next
+          docker build -f Dockerfile.prebuilt -t "$IMAGE_NAME" prebuilt
+
 
       - name: Restart container
         env:

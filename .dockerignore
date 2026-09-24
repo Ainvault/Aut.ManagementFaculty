@@ -1,9 +1,9 @@
-# dependencies & build output (rebuilt inside the image)
-node_modules
-.next
-out
-build
-dist
+# Only ignore repo-root build artifacts — NOT prebuilt/standalone/{.next,node_modules}
+/node_modules
+/.next
+/out
+/build
+/dist
 
 # version control & CI
 .git
@@ -18,7 +18,7 @@ dist
 .claude
 skills
 
-# project meta / docs (keep messages/ — required by next-intl at build time)
+# project meta / docs
 memory-bank
 docs
 *.md
@@ -31,10 +31,9 @@ run-mvp.bat
 scripts
 db
 
-# docker
+# docker sources not needed for prebuilt pack (full Dockerfile still local-only)
 Dockerfile
 docker-compose.yml
-.dockerignore
 
 # logs & debug
 npm-debug.log*
@@ -48,7 +47,7 @@ logs
 *.tsbuildinfo
 next-env.d.ts
 
-# env & local data (must not leak into image)
+# env & local data
 .env
 .env.local
 .env*.local
