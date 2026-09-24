@@ -104,17 +104,36 @@ jobs:
       - name: Verify artifact & build image
         run: |
           set -euo pipefail
+          echo "== artifact root =="
+          ls -la prebuilt
+          echo "== artifact .next =="
+          ls -la prebuilt/.next
+
           test -f prebuilt/server.js
           test -f prebuilt/.next/BUILD_ID
           test -d prebuilt/.next/static
           test -d prebuilt/node_modules
           test -f prebuilt/Dockerfile
 
+          # Drop legacy root static from context if present (Next deprecation)
+          rm -rf prebuilt/static
+
           docker build -t "$IMAGE_NAME" prebuilt
 
-          # Confirm BUILD_ID is actually inside the image
-          docker run --rm --entrypoint sh "$IMAGE_NAME" -c \
-            'test -f /app/.next/BUILD_ID && test -f /app/server.js && test -d /app/.next/static && test ! -e /app/static && ls -la /app && ls -la /app/.next'
+          echo "== image checks =="
+          docker run --rm --entrypoint sh "$IMAGE_NAME" -c '
+            set -e
+            ls -la /app
+            ls -la /app/.next
+            test -f /app/server.js || { echo "FAIL: missing /app/server.js"; exit 1; }
+            test -f /app/.next/BUILD_ID || { echo "FAIL: missing /app/.next/BUILD_ID"; exit 1; }
+            test -d /app/.next/static || { echo "FAIL: missing /app/.next/static"; exit 1; }
+            if [ -e /app/static ]; then
+              echo "FAIL: legacy /app/static still present"
+              exit 1
+            fi
+            echo "OK: runtime files present"
+          '
 
       - name: Restart container
         env:

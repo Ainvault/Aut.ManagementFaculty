@@ -15,6 +15,9 @@ RUN addgroup --system --gid 1001 nodejs \
 # Single COPY of an already-complete app root (avoids missing hidden .next)
 COPY --chown=nextjs:nodejs . ./
 
+# Next warns/breaks if a legacy root-level ./static exists alongside ./public
+RUN rm -rf ./static
+
 USER nextjs
 EXPOSE 3000
 CMD ["node", "server.js"]
