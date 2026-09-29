@@ -18,6 +18,8 @@ services:
       - "3000"
     networks:
       - shared_web_network
+    ports:
+      - "3000:3000"
 
 networks:
   shared_web_network:
