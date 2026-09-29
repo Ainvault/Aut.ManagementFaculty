@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
           registration_url, image_url, seo_description, published)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,
       [
-        id, d.slug, d.title, d.summary, d.category, d.durationHours, d.format,
+        id, d.slug, d.title, d.summary, d.category, d.durationHours ?? null, d.format,
         d.price ?? null, d.registrationUrl, d.imageUrl, d.seoDescription, d.published,
       ],
     );

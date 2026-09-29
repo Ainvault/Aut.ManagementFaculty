@@ -3,7 +3,7 @@ import pg from "pg";
 const { Client } = pg;
 
 const client = new Client({
-  host: "138.124.117.71",
+  host: "185.36.145.12",
   port: 5432,
   database: "ManagmentWebSite_Db",
   user: "managment_web",

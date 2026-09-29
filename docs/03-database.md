@@ -6,7 +6,7 @@
 
 | مورد | مقدار |
 |---|---|
-| وضعیت | متصل و تأییدشده (`2026-09-22`؛ فاز H `2026-09-24`) |
+| وضعیت | متصل و تأییدشده روی `185.36.145.12` (`2026-09-29`) |
 | Engine | PostgreSQL **16.15** |
 | Encoding | **UTF8** |
 | جداول فعلی | ۱۴ جدول داده + `schema_migrations` (فاز A تا H؛ لیست در بخش Schema) |
@@ -15,7 +15,7 @@
 
 | فیلد | مقدار |
 |---|---|
-| Host | `138.124.117.71` |
+| Host | `185.36.145.12` |
 | Port | `5432` |
 | Database | `ManagmentWebSite_Db` |
 | Username | `managment_web` |
@@ -26,13 +26,13 @@
 ## Connection string
 
 ```
-postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@138.124.117.71:5432/ManagmentWebSite_Db
+postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@185.36.145.12:5432/ManagmentWebSite_Db
 ```
 
 برای اپلیکیشن از متغیر محیطی استفاده شود:
 
 ```env
-DATABASE_URL=postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@138.124.117.71:5432/ManagmentWebSite_Db
+DATABASE_URL=postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@185.36.145.12:5432/ManagmentWebSite_Db
 ```
 
 فایل محلی: `.env.local` (در gitignore است).

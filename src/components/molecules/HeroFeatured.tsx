@@ -5,24 +5,39 @@ import { MetamorphField } from "@/components/atoms/MetamorphField";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export function HeroFeatured({ title, href, eyebrow }: { title: string; href: string; imageUrl: string; eyebrow: string }) {
+export function HeroFeatured({
+  title,
+  href,
+  eyebrow,
+}: {
+  title?: string;
+  href?: string;
+  imageUrl?: string;
+  eyebrow?: string;
+}) {
   return (
     <header className="home-hero relative isolate overflow-hidden bg-chart-3 text-background">
-      <MetamorphField tone="dark" density="sparse" className="end-0 start-auto w-[min(55vw,36rem)] opacity-20" />
-      <Container className="relative z-[2] flex min-h-[38rem] min-w-0 items-center py-20 sm:py-24">
-        <div className="home-hero__copy w-full min-w-0 max-w-4xl">
-          <div className="inline-flex max-w-full items-center gap-2 text-sm font-medium text-background/60">
-            <GraduationCap className="size-4 shrink-0" />
-            <span className="min-w-0 leading-6">مرکز آموزش‌های آزاد دانشگاه صنعتی امیرکبیر</span>
+      <MetamorphField
+        tone="dark"
+        density="sparse"
+        className="end-0 start-auto w-[min(55vw,36rem)] opacity-20"
+      />
+      <Container className="relative z-[2] flex min-h-[34rem] min-w-0 items-center py-16 sm:min-h-[36rem] sm:py-20">
+        <div className="home-hero__copy w-full min-w-0 max-w-4xl text-start">
+          <div className="inline-flex max-w-full items-start gap-2 text-sm font-medium text-background/60">
+            <GraduationCap className="mt-0.5 size-4 shrink-0" />
+            <span className="min-w-0 leading-7 text-pretty">
+              مرکز آموزش‌های آزاد دانشکده مدیریت، علم و فناوری دانشگاه{"\u00A0"}صنعتی{"\u00A0"}امیرکبیر
+            </span>
           </div>
-          <h1 className="mt-8 text-4xl font-black leading-[1.25] tracking-tight break-words sm:text-6xl lg:text-7xl">
-            آموزش حرفه‌ای برای
-            <span className="mt-2 block text-background">مدیریت در دنیای متغیر</span>
+          <h1 className="mt-6 max-w-4xl text-[1.65rem] font-black leading-[1.45] tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.4]">
+            برای تصمیم‌هایی که{" "}
+            <span className="whitespace-nowrap">صنعت را پیش می‌برند</span>
           </h1>
-          <p className="mt-7 max-w-2xl text-base leading-8 text-background/65 sm:text-lg sm:leading-9">
-            دانش دانشگاهی و تجربه‌ی صنعت را کنار هم می‌آوریم تا مدیران و متخصصان برای تصمیم‌های پیچیده آماده‌تر شوند.
+          <p className="mt-6 max-w-2xl border-t border-accent/60 pt-5 text-base leading-8 text-pretty text-background/65 sm:text-lg sm:leading-8">
+            دانش امیرکبیر، پشتوانه رهبری نوآور در عصر داده و هوش{"\u00A0"}مصنوعی.
           </p>
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-9 flex flex-wrap gap-3">
             <Link
               href="/programs"
               className={cn(
@@ -42,13 +57,20 @@ export function HeroFeatured({ title, href, eyebrow }: { title: string; href: st
               درباره مرکز
             </Link>
           </div>
-          <div className="mt-12 border-t border-background/10 pt-6">
-            <Link href={href} className="group inline-flex max-w-full items-center gap-3 text-sm text-background/55 transition-colors hover:text-background">
-              <span className="shrink-0 font-semibold text-background/80">{eyebrow}</span>
-              <span className="min-w-0 truncate">{title}</span>
-              <ArrowLeft className="size-4 shrink-0 transition-transform group-hover:-translate-x-1" />
-            </Link>
-          </div>
+          {title && href && eyebrow ? (
+            <div className="mt-12 border-t border-background/10 pt-6">
+              <Link
+                href={href}
+                className="group inline-flex max-w-full items-center gap-3 text-sm text-background/55 transition-colors hover:text-background"
+              >
+                <span className="shrink-0 font-semibold text-background/80">
+                  {eyebrow}
+                </span>
+                <span className="min-w-0 truncate">{title}</span>
+                <ArrowLeft className="size-4 shrink-0 transition-transform group-hover:-translate-x-1" />
+              </Link>
+            </div>
+          ) : null}
         </div>
       </Container>
     </header>

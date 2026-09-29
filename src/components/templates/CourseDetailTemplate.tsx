@@ -51,16 +51,24 @@ export function CourseDetailTemplate({
       label: labels.format,
       value: formatLabel(course.format),
     },
-    {
-      icon: Clock,
-      label: labels.duration,
-      value: `${course.durationHours} ساعت`,
-    },
-    {
-      icon: Wallet,
-      label: labels.price,
-      value: priceLabel ?? labels.priceUnset,
-    },
+    ...(course.durationHours
+      ? [
+          {
+            icon: Clock,
+            label: labels.duration,
+            value: `${course.durationHours} ساعت`,
+          },
+        ]
+      : []),
+    ...(priceLabel
+      ? [
+          {
+            icon: Wallet,
+            label: labels.price,
+            value: priceLabel,
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -136,12 +144,14 @@ export function CourseDetailTemplate({
               <p className="text-sm font-semibold text-foreground">{course.title}</p>
               <Separator className="my-4" />
               <ul className="space-y-3 text-sm text-muted-foreground">
-                <li className="flex justify-between gap-3">
-                  <span>{labels.duration}</span>
-                  <span className="font-medium text-foreground">
-                    {course.durationHours} ساعت
-                  </span>
-                </li>
+                {course.durationHours ? (
+                  <li className="flex justify-between gap-3">
+                    <span>{labels.duration}</span>
+                    <span className="font-medium text-foreground">
+                      {course.durationHours} ساعت
+                    </span>
+                  </li>
+                ) : null}
                 <li className="flex justify-between gap-3">
                   <span>{labels.format}</span>
                   <span className="font-medium text-foreground text-end">

@@ -16,6 +16,7 @@
 | 2026-09-22 | D10 — Design system با توکن CSS + کلاس‌های `ds-*` | ظاهر دانشگاهی یکدست؛ حرکت transform/opacity؛ بدون فانتزی؛ هم‌راستا با vercel skill |
 | 2026-09-22 | D11 — بازسازی ۱:۱ بصری از تم زنده Sloan (فارسی RTL) | استخراج پالت/CTA/IA از mitsloan.mit.edu؛ Program Selector در overlay آکادمیک؛ نام‌گذاری AUT |
 | 2026-09-22 | D12 — PostgreSQL تست روی `138.124.117.71`؛ جزئیات در `docs/03-database.md` | محیط تست؛ credential در docs قابل‌قبول؛ امنیت بعداً |
+| 2026-09-29 | D12b — Postgres به `185.36.145.12` منتقل شد (`ManagmentWebSite_Db` / `managment_web`)؛ production deploy هم همان `DATABASE_URL` را می‌گیرد | سرور مشترک InsAIght |
 | 2026-09-22 | D13 — پلن کامل توسعه در `docs/04-development-plan.md` (A–H؛ SQL/`pg`؛ ادمین در همان Next) | اجرای مرحله‌ای با ایجنت بدون حدس معماری؛ ORM اختیاری بعداً |
 | 2026-09-22 | D14 — Schema و migration با SQL خام + runner سادهٔ `db/migrate.mjs` (نسخه‌گذاری در `schema_migrations`؛ هر فایل یک تراکنش؛ + `set_updated_at` trigger) | ایدمپوتنت و تکرارپذیر؛ بدون وابستگی ORM در فاز اول |
 | 2026-09-22 | D15 — Seed با `db/seed.mjs` که مستقیم mock های `.ts` و مپر `src/lib/db/mappers.ts` را با type-stripping بومی Node 24 می‌خواند؛ upsert با `ON CONFLICT (id)` | بدون وابستگی tsx/باندل؛ یک منبع مپر برای seed و خواندن آیندهٔ `lib/data` |

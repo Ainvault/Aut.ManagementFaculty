@@ -24,7 +24,7 @@ type Payload = {
   title: string;
   summary: string;
   category: string;
-  durationHours: number;
+  durationHours: number | null;
   format: string;
   price: number | null;
   registrationUrl: string;
@@ -45,8 +45,8 @@ export function CourseForm({ initial }: CourseFormProps) {
     title: initial?.title ?? "",
     summary: initial?.summary ?? "",
     category: initial?.category ?? "leadership",
-    durationHours: initial?.durationHours ?? 16,
-    format: initial?.format ?? "online",
+    durationHours: initial?.durationHours ?? null,
+    format: initial?.format ?? "in-person",
     price: initial?.price ?? null,
     registrationUrl: initial?.registrationUrl ?? "/register/",
     imageUrl: initial?.imageUrl ?? "",
@@ -186,12 +186,10 @@ export function CourseForm({ initial }: CourseFormProps) {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="leadership">رهبری</SelectItem>
-                    <SelectItem value="technology">فناوری</SelectItem>
-                    <SelectItem value="innovation">نوآوری</SelectItem>
-                    <SelectItem value="energy">انرژی</SelectItem>
-                    <SelectItem value="design">طراحی</SelectItem>
-                    <SelectItem value="digital">دیجیتال</SelectItem>
+                    <SelectItem value="technology">هوش مصنوعی و تحول سازمان</SelectItem>
+                    <SelectItem value="digital">برند و بازاریابی</SelectItem>
+                    <SelectItem value="innovation">برندینگ</SelectItem>
+                    <SelectItem value="leadership">هم‌اندیشی مدیریتی</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -214,9 +212,15 @@ export function CourseForm({ initial }: CourseFormProps) {
                   id="durationHours"
                   type="number"
                   min={1}
-                  value={form.durationHours}
-                  onChange={(e) => set("durationHours", Number(e.target.value))}
-                  required
+                  value={form.durationHours ?? ""}
+                  onChange={(e) => {
+                    const raw = e.target.value;
+                    set(
+                      "durationHours",
+                      raw === "" ? null : Number(raw),
+                    );
+                  }}
+                  placeholder="اختیاری"
                 />
               </div>
               <div className="space-y-1.5 sm:col-span-3">

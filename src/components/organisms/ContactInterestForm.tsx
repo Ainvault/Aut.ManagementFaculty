@@ -15,7 +15,14 @@ export function ContactInterestForm({
   successLabel: string;
   courseSlug?: string;
 }) {
-  const [form, setForm] = useState({ fullName: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    position: "",
+    organization: "",
+    message: "",
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
@@ -90,6 +97,28 @@ export function ContactInterestForm({
           onChange={(e) => set("phone", e.target.value)}
           className="h-11"
         />
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-1.5">
+          <Label htmlFor="position">سمت</Label>
+          <Input
+            id="position"
+            value={form.position}
+            onChange={(e) => set("position", e.target.value)}
+            required
+            className="h-11"
+          />
+        </div>
+        <div className="space-y-1.5">
+          <Label htmlFor="organization">سازمان</Label>
+          <Input
+            id="organization"
+            value={form.organization}
+            onChange={(e) => set("organization", e.target.value)}
+            required
+            className="h-11"
+          />
+        </div>
       </div>
       <div className="space-y-1.5">
         <Label htmlFor="message">پیام</Label>

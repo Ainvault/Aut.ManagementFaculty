@@ -27,7 +27,9 @@ const courseFields = {
   title: z.string().min(1, "title الزامی است"),
   summary: z.string().min(1, "summary الزامی است"),
   category: z.enum(["leadership", "technology", "innovation", "energy", "design", "digital"]),
-  durationHours: z.number().int().positive("durationHours باید عدد مثبت باشد"),
+  durationHours: z
+    .union([z.number().int().positive("durationHours باید عدد مثبت باشد"), z.null()])
+    .optional(),
   format: z.enum(["online", "blended", "in-person"]),
   /** Optional; null clears price. Empty string from forms is coerced to null. */
   price: z
@@ -146,12 +148,20 @@ export const topicPatchSchema = z
   .partial()
   .refine((v) => Object.keys(v).length > 0, { message: "حداقل یک فیلد برای ویرایش لازم است" });
 
+const optionalUrl = z.union([urlOrPath, z.literal("")]).optional();
+
 const facultyFields = {
   name: z.string().min(1, "name الزامی است"),
   title: z.string().min(1, "title الزامی است"),
   focus: z.string().min(1, "focus الزامی است"),
   bio: z.string().min(1, "bio الزامی است"),
-  imageUrl: urlOrPath,
+  imageUrl: z.union([urlOrPath, z.literal("")]),
+  email: z.union([z.string().email("ایمیل نامعتبر است"), z.literal("")]).optional(),
+  office: z.string().optional(),
+  phone: z.string().optional(),
+  department: z.string().optional(),
+  linkedinUrl: optionalUrl,
+  scholarUrl: optionalUrl,
   published: z.boolean(),
 };
 

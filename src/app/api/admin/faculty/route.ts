@@ -30,8 +30,17 @@ export async function POST(request: NextRequest) {
   try {
     const { sql, params } = buildInsert(
       "faculty_members",
-      ["id", "name", "title", "focus", "bio", "image_url", "published"],
-      [id, d.name, d.title, d.focus, d.bio, d.imageUrl, d.published],
+      [
+        "id", "name", "title", "focus", "bio", "image_url",
+        "email", "office", "phone", "department", "linkedin_url", "scholar_url",
+        "published",
+      ],
+      [
+        id, d.name, d.title, d.focus, d.bio, d.imageUrl,
+        d.email || null, d.office || null, d.phone || null, d.department || null,
+        d.linkedinUrl || null, d.scholarUrl || null,
+        d.published,
+      ],
     );
     await query(sql, params);
     const res = await query<FacultyMemberRow>(`SELECT * FROM faculty_members WHERE id = $1`, [id]);

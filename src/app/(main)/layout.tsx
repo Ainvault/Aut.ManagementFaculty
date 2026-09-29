@@ -43,8 +43,6 @@ export default async function MainLayout({
         links={[
           { label: t("footer.press"), href: "/press" },
           { label: t("footer.careers"), href: "/careers" },
-          { label: t("footer.accessibility"), href: "/accessibility" },
-          { label: t("footer.privacy"), href: "/privacy" },
         ]}
       />
     </>

@@ -15,6 +15,12 @@ const FACULTY_COLUMNS: Record<string, string> = {
   focus: "focus",
   bio: "bio",
   imageUrl: "image_url",
+  email: "email",
+  office: "office",
+  phone: "phone",
+  department: "department",
+  linkedinUrl: "linkedin_url",
+  scholarUrl: "scholar_url",
   published: "published",
 };
 

@@ -44,7 +44,9 @@ export async function getTopicBySlug(
 
 export async function getFaculty(): Promise<FacultyMember[]> {
   const res = await query<FacultyMemberRow>(
-    "SELECT * FROM faculty_members WHERE published = true ORDER BY id ASC",
+    `SELECT * FROM faculty_members
+     WHERE published = true
+     ORDER BY NULLIF(regexp_replace(id, '\\D', '', 'g'), '')::int NULLS LAST, id ASC`,
   );
   return res.rows.map(rowToFacultyMember);
 }

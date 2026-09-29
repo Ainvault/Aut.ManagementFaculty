@@ -107,6 +107,8 @@ export function RegistrationsTable({ rows }: { rows: AdminRegistration[] }) {
               <TableHead>نام</TableHead>
               <TableHead>ایمیل</TableHead>
               <TableHead>تلفن</TableHead>
+              <TableHead>سمت</TableHead>
+              <TableHead>سازمان</TableHead>
               <TableHead>دوره</TableHead>
               <TableHead>وضعیت</TableHead>
               <TableHead>تغییر وضعیت</TableHead>
@@ -120,6 +122,8 @@ export function RegistrationsTable({ rows }: { rows: AdminRegistration[] }) {
                 <TableCell className="font-medium">{lead.full_name}</TableCell>
                 <TableCell className="text-muted-foreground">{lead.email}</TableCell>
                 <TableCell className="text-muted-foreground">{lead.phone ?? "—"}</TableCell>
+                <TableCell className="text-muted-foreground">{lead.position ?? "—"}</TableCell>
+                <TableCell className="text-muted-foreground">{lead.organization ?? "—"}</TableCell>
                 <TableCell className="text-muted-foreground">
                   {lead.course_slug ?? "—"}
                 </TableCell>

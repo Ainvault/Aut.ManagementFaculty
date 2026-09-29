@@ -56,7 +56,7 @@ export function ProfessionalLandingTemplate({
         />
         <div className="relative z-[2] flex min-h-[inherit] min-w-0 items-center py-12">
           <Container>
-            <div className="w-full min-w-0 max-w-3xl text-start">
+            <div className="w-full min-w-0 max-w-4xl text-start">
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-background/75">
                   {labels.offeredBy}
@@ -64,11 +64,11 @@ export function ProfessionalLandingTemplate({
                 <Heading
                   as="h1"
                   level={1}
-                  className="mt-4 text-4xl leading-tight break-words text-background sm:text-6xl"
+                  className="mt-4 max-w-4xl text-[1.65rem] leading-[1.45] text-pretty text-background sm:text-4xl lg:text-[2.75rem] lg:leading-[1.4]"
                 >
                   {labels.heroTitle}
                 </Heading>
-                <p className="mt-5 max-w-xl border-s border-accent ps-5 text-base leading-8 text-background/70">
+                <p className="mt-5 max-w-2xl border-t border-accent/60 pt-5 text-base leading-8 text-pretty text-background/70 sm:text-lg sm:leading-8">
                   {labels.heroBody}
                 </p>
                 <div className="mt-6">

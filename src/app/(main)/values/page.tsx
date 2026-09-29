@@ -12,11 +12,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ValuesPage() {
-  const t = await getTranslations("pages");
-
   return (
     <main id="main-content">
-      <PageHero title={t("valuesTitle")} intro={valuesContent.intro} />
+      <PageHero
+        eyebrow="ارزش‌های آموزشی ما"
+        title={valuesContent.title}
+        intro={valuesContent.intro}
+      />
       <Section className="bg-gradient-to-b from-background to-muted/40">
         <Container>
           <div className="grid gap-5 sm:grid-cols-2">

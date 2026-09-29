@@ -42,7 +42,7 @@ export interface CourseRow {
   title: string;
   summary: string;
   category: string;
-  duration_hours: number;
+  duration_hours: number | null;
   format: string;
   price: string | number | null;
   registration_url: string;
@@ -58,7 +58,7 @@ export function courseToRow(course: Course): CourseRow {
     title: course.title,
     summary: course.summary,
     category: course.category,
-    duration_hours: course.durationHours,
+    duration_hours: course.durationHours ?? null,
     format: course.format,
     price: course.price ?? null,
     registration_url: course.registrationUrl,
@@ -189,6 +189,12 @@ export interface FacultyMemberRow {
   focus: string;
   bio: string;
   image_url: string;
+  email: string | null;
+  office: string | null;
+  phone: string | null;
+  department: string | null;
+  linkedin_url: string | null;
+  scholar_url: string | null;
   published: boolean;
 }
 
@@ -200,6 +206,12 @@ export function facultyMemberToRow(faculty: FacultyMember): FacultyMemberRow {
     focus: faculty.focus,
     bio: faculty.bio,
     image_url: faculty.imageUrl,
+    email: faculty.email ?? null,
+    office: faculty.office ?? null,
+    phone: faculty.phone ?? null,
+    department: faculty.department ?? null,
+    linkedin_url: faculty.linkedinUrl ?? null,
+    scholar_url: faculty.scholarUrl ?? null,
     published: true,
   };
 }
@@ -388,6 +400,12 @@ export function rowToFacultyMember(row: FacultyMemberRow): FacultyMember {
     focus: row.focus,
     bio: row.bio,
     imageUrl: row.image_url,
+    email: row.email ?? undefined,
+    office: row.office ?? undefined,
+    phone: row.phone ?? undefined,
+    department: row.department ?? undefined,
+    linkedinUrl: row.linkedin_url ?? undefined,
+    scholarUrl: row.scholar_url ?? undefined,
   };
 }
 

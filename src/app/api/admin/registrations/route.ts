@@ -12,6 +12,8 @@ export interface RegistrationLeadRow {
   full_name: string;
   email: string;
   phone: string | null;
+  position: string | null;
+  organization: string | null;
   message: string | null;
   source: string;
   status: "new" | "contacted" | "enrolled" | "rejected";

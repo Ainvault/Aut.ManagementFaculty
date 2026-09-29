@@ -4,8 +4,8 @@ import { Container } from "@/components/atoms/Container";
 import { Separator } from "@/components/ui/separator";
 import {
   siteAddress,
-  siteShortName,
   siteUniversity,
+  siteShortName,
 } from "@/lib/site-config";
 
 export function SiteFooter({

@@ -14,7 +14,8 @@ export interface Course {
   title: string;
   summary: string;
   category: CourseCategory;
-  durationHours: number;
+  /** Hours; null/omit when not confirmed in source materials */
+  durationHours?: number | null;
   format: CourseFormat;
   /** Optional price in toman; omit/null = do not show price in UI */
   price?: number | null;
@@ -97,10 +98,18 @@ export interface NavItem {
 export interface FacultyMember {
   id: string;
   name: string;
+  /** مرتبه علمی (مثلاً استادیار) */
   title: string;
+  /** علایق پژوهشی */
   focus: string;
   bio: string;
   imageUrl: string;
+  email?: string;
+  office?: string;
+  phone?: string;
+  department?: string;
+  linkedinUrl?: string;
+  scholarUrl?: string;
 }
 
 export interface AlumniStory {

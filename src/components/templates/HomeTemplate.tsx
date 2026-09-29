@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Building2, Compass, Network } from "lucide-react";
+import { Building2, Compass, Network } from "lucide-react";
 import { Container } from "@/components/atoms/Container";
 import { DotCta } from "@/components/atoms/DotCta";
 import { Heading } from "@/components/atoms/Heading";
@@ -13,7 +13,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { HeroFeatured } from "@/components/molecules/HeroFeatured";
 import {
-  ArticleCard,
   EventCard,
   IntersectionCard,
 } from "@/components/molecules/Cards";
@@ -46,46 +45,39 @@ export function HomeHero({
   featured,
   eyebrow,
 }: {
-  featured: Article;
+  featured: Article | null;
   eyebrow: string;
 }) {
   return (
     <HeroFeatured
-      title={featured.title}
-      href={featured.href}
-      imageUrl={featured.imageUrl}
+      title={featured?.title}
+      href={featured?.href}
+      imageUrl={featured?.imageUrl}
       eyebrow={eyebrow}
     />
   );
 }
 
-export function HomeIdeas({
-  articles,
-  title,
-}: {
-  articles: Article[];
-  title: string;
-}) {
-  const ideaCards = articles.filter((a) => !a.featured).slice(0, 3);
+export function HomeIdeas() {
   return (
     <>
     <Section className="relative py-20 sm:py-28">
       <Container>
         <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] lg:items-start lg:gap-20">
           <div className="min-w-0 lg:sticky lg:top-28">
-            <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary">چرا امیرکبیر؟</Badge>
+            <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary">چرا دانشگاه امیرکبیر؟</Badge>
             <Heading level={2} className="mt-5 text-3xl leading-tight break-words sm:text-4xl">
-              آموزش برای جهانِ در حال تغییر
+              مدیریت با پشتوانه دانش مهندسی
             </Heading>
             <p className="mt-5 text-base leading-8 text-muted-foreground sm:text-lg">
-              اینجا آموزش، انتقال محتوا نیست؛ فضایی است برای دیدن مسئله از زاویه‌ای تازه، ساختن راه‌حل و اجرای آن در دنیای واقعی.
+              هویت مهندسی و فناورانه دانشگاه صنعتی امیرکبیر به آموزش مدیریت در این دانشگاه جهت می‌دهد. در مرکز آموزش‌های آزاد دانشکده مدیریت، علم و فناوری، توسعه مدیران با شناخت فناوری و مسائل صنعت پیوند دارد.
             </p>
           </div>
           <div className="grid min-w-0 gap-4 md:grid-cols-3 lg:grid-cols-1">
             {[
-              { icon: Compass, title: "تفکر راهبردی", text: "دیدن مسئله از زاویه‌های تازه و تبدیل پیچیدگی به تصمیم‌های بهتر." },
-              { icon: Building2, title: "اثر سازمانی", text: "یادگیری مبتنی بر مسئله‌های واقعی کسب‌وکار و صنعت ایران." },
-              { icon: Network, title: "شبکه‌ی حرفه‌ای", text: "پیوند با مدیران، متخصصان و پژوهشگران برای رشد ماندگار." },
+              { icon: Compass, title: "پشتوانه علمی امیرکبیر", text: "آموزش مدیریت در بستر دانشگاه صنعتی امیرکبیر، با تکیه بر دانش تخصصی، استدلال علمی و نگاه نقادانه." },
+              { icon: Building2, title: "پیوند مدیریت و فناوری", text: "نگاهی میان‌رشته‌ای به داده و هوش مصنوعی؛ با توجه به تأثیر آن‌ها بر تصمیم‌های مدیریتی، مدل‌های کسب‌وکار و آینده صنعت." },
+              { icon: Network, title: "تمرکز بر مسائل صنعت", text: "توسعه توانمندی مدیران با توجه به چالش‌های اجرای نوآوری، تغییر فرایندها و بهبود عملکرد سازمان." },
             ].map((item, index) => (
               <Card key={item.title} className="min-w-0 border-border/70 py-0 shadow-none transition-colors hover:border-primary/25">
                 <CardContent className="flex h-full min-w-0 flex-col gap-5 p-5 sm:p-6 lg:flex-row lg:items-center lg:gap-6 lg:p-7">
@@ -102,17 +94,16 @@ export function HomeIdeas({
       <div className="grid min-w-0 lg:grid-cols-2">
         <div className="relative z-[1] order-2 flex min-w-0 flex-col justify-center gap-4 px-5 py-8 sm:gap-5 sm:px-10 sm:py-10 lg:order-1 lg:min-h-[22rem] lg:px-14 lg:py-12">
           <p className="text-xs font-bold text-background/55">
-            یادگیری در بستر مسئله‌های واقعی
+            رویکرد آموزشی ما
           </p>
           <Heading
             level={2}
             className="text-2xl leading-snug break-words text-background sm:text-3xl lg:text-[2.125rem] lg:leading-snug"
           >
-            جایی برای پیوند دانش دانشگاهی و تجربه‌ی صنعت
+            دانش امیرکبیر، در خدمت تحول صنعت
           </Heading>
           <p className="max-w-xl text-sm leading-7 text-background/70 sm:text-base sm:leading-8">
-            دوره‌ها با مشارکت مدرسان دانشگاه، مدیران و متخصصان طراحی می‌شوند تا
-            آموخته‌ها از کلاس به تصمیم و اجرا برسند.
+            امیرکبیر، دانش تخصصی و چارچوب‌های مدیریتی را برای مواجهه با چالش‌های صنعت در اختیار مدیران قرار می‌دهد؛ از شناخت ظرفیت‌های داده و هوش مصنوعی تا ارزیابی تصمیم‌ها و راهبری نوآوری در سازمان.
           </p>
           <Link
             href="/about"
@@ -135,41 +126,6 @@ export function HomeIdeas({
         </div>
       </div>
     </section>
-    <Section tone="muted" className="pt-12 pb-16 sm:pt-14 sm:pb-20">
-      <Container>
-        <div className="mb-8 flex min-w-0 flex-col gap-3 sm:mb-10 sm:flex-row sm:items-end sm:gap-6">
-          <div className="min-w-0">
-            <p className="text-xs font-bold text-primary">دانش برای عمل</p>
-            <Heading level={2} className="mt-2 text-3xl break-words sm:text-4xl">
-              <Link href="/insights" className="hover:text-primary">
-                {title}
-              </Link>
-            </Heading>
-          </div>
-          <Link
-            href="/insights"
-            className={cn(
-              buttonVariants({ variant: "ghost" }),
-              "w-fit shrink-0 gap-2 text-primary",
-            )}
-          >
-            همه بینش‌ها <ArrowLeft className="size-4" />
-          </Link>
-        </div>
-        <div className="grid min-w-0 gap-8 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10">
-          {ideaCards.map((article) => (
-            <ArticleCard
-              key={article.id}
-              title={article.title}
-              category={article.category}
-              excerpt={article.excerpt}
-              imageUrl={article.imageUrl}
-              href={article.href}
-            />
-          ))}
-        </div>
-      </Container>
-    </Section>
     </>
   );
 }
@@ -220,7 +176,7 @@ export function HomeRest({
       <Section tone="muted" className="py-20 sm:py-24">
         <Container>
           <div className="mb-10 max-w-3xl">
-            <p className="text-xs font-bold text-primary">مرزهای تازه‌ی کسب‌وکار</p>
+            <p className="text-xs font-bold text-primary">حوزه‌های آموزشی</p>
             <Heading level={2} className="mt-2 text-3xl sm:text-4xl">{labels.intersectionsTitle}</Heading>
             <p className="mt-3 text-lg font-semibold leading-relaxed text-primary sm:text-xl">
               {labels.intersectionsSubtitle}

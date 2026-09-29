@@ -1,10 +1,10 @@
 export const COURSE_CATEGORY_LABELS: Record<string, string> = {
-  leadership: "رهبری",
-  technology: "فناوری",
-  innovation: "نوآوری",
+  leadership: "هم‌اندیشی مدیریتی",
+  technology: "هوش مصنوعی و تحول سازمان",
+  innovation: "برندینگ",
   energy: "انرژی",
   design: "طراحی",
-  digital: "دیجیتال",
+  digital: "برند و بازاریابی",
 };
 
 export const COURSE_FORMAT_LABELS: Record<string, string> = {

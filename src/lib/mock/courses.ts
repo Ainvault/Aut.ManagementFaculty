@@ -1,89 +1,103 @@
 import type { Course } from "@/lib/types";
 
+/** Seed/reference courses from docs/cources + برنامه تحول سازمانی با AI. */
 export const courses: Course[] = [
   {
-    id: "crs-ai-mgmt",
-    slug: "ai-for-managers",
-    title: "هوش مصنوعی برای مدیران",
+    id: "crs-ai-org-transform",
+    slug: "ai-organizational-transformation",
+    title: "تحول سازمانی با هوش مصنوعی",
     summary:
-      "آشنایی کاربردی با ابزارهای هوش مصنوعی برای تصمیم‌گیری، تحلیل داده و رهبری تحول دیجیتال در سازمان.",
+      "دوره تخصصی دوروزه؛ درک روشن از اینکه هوش مصنوعی کجا و چگونه به سازمان کمک می‌کند.",
     category: "technology",
-    durationHours: 24,
-    format: "online",
-    registrationUrl: "/register/ai-for-managers",
-    imageUrl:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+    durationHours: null,
+    format: "in-person",
+    registrationUrl: "/register/ai-organizational-transformation",
+    imageUrl: "/images/courses/ai-organizational-transformation.png",
     seoDescription:
-      "دوره هوش مصنوعی برای مدیران — آموزش آزاد دانشگاه صنعتی امیرکبیر",
+      "دوره تخصصی دوروزه تحول سازمانی با هوش مصنوعی. مسیر یادگیری از مسئله سازمانی تا نقش انسان و AI، انتخاب مسیر، مدیریت محصول AI، داده و حاکمیت، ساخت و آزمون (Prompt، chatbot، AI Agent) و تشخیص کاربرد مناسب. محورها: ۱) آمادگی و مدیریت تغییر — دکتر آغاز؛ ۲) تحول با هوش مصنوعی — دکتر هراتی‌نیک؛ ۳) چرخه عمر محصول AI — دکتر سلیمی‌نمین؛ ۴) حاکمیت داده — دکتر روشنی؛ ۵) تجربه عملی AI Fluency و دستیاران صنعتی آموزشی — مهندس متین صفار و مهندس محمدحسین کشفی. شعار دوره: A SMARTER TOMORROW BY BETTER DECISIONS.",
   },
   {
-    id: "crs-lead-comm",
-    slug: "leadership-communication",
-    title: "رهبری و ارتباطات سازمانی",
+    id: "crs-ai-fluency",
+    slug: "ai-fluency",
+    title: "AI Fluency؛ کارگاه عملی کاربرد هوش مصنوعی",
     summary:
-      "مهارت‌های رهبری، مذاکره و ارتباطات مؤثر برای مدیران میانی و ارشد.",
-    category: "leadership",
-    durationHours: 20,
-    format: "blended",
-    registrationUrl: "/register/leadership-communication",
-    imageUrl:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
-    seoDescription: "دوره رهبری و ارتباطات سازمانی — آموزش آزاد امیرکبیر",
+      "از پرامپت دقیق تا ایجنت قابل اعتماد — یاد بگیرید، بسازید، ارزیابی کنید.",
+    category: "technology",
+    durationHours: null,
+    format: "in-person",
+    registrationUrl: "/register/ai-fluency",
+    imageUrl: "/images/courses/ai-fluency.jpg",
+    seoDescription:
+      "کارگاه عملی کاربرد هوش مصنوعی با شعار «از پرامپت دقیق تا ایجنت قابل اعتماد». پنج گام مسیر یادگیری: ۱) مهندسی پرامپت — درخواست شفاف، پاسخ هدفمند؛ مشخص‌کردن هدف، زمینه و قالب خروجی؛ ۲) طراحی دستورالعمل (Prompt Card / Skill) — دستور شفاف، اجرای منسجم؛ تعریف گام‌ها و قوانین انجام کار؛ ۳) چت‌بات اختصاصی — دانش شما، دستیار شما؛ تعیین نقش، منابع و مرزهای پاسخ؛ ۴) ایجنت — از پاسخ‌دادن تا انجام کار؛ اتصال ابزارها با نظارت انسان؛ ۵) ارزیابی و کنترل — بسنجید، اصلاح کنید، اعتماد کنید؛ آزمون پاسخ‌ها و کنترل خطا. در پایان کارگاه، از ایده به یک دستیار کاربردی می‌رسید: پرامپت دقیق، مهارت قابل تکرار، چت‌بات اختصاصی و ایجنت قابل ارزیابی.",
   },
   {
-    id: "crs-innovation",
-    slug: "innovation-strategy",
-    title: "استراتژی نوآوری",
+    id: "crs-hr-prompt",
+    slug: "hr-prompt-engineering",
+    title: "مهندسی پرامپت در منابع انسانی",
     summary:
-      "طراحی نقشه راه نوآوری، ارزیابی فرصت‌ها و اجرای پروژه‌های نوآورانه در کسب‌وکار.",
+      "کارگاهی درباره هدایت هوش مصنوعی مولد در مسائل منابع انسانی؛ با تمرکز بر تحلیل رزومه، شرح شغل، شایستگی‌ها و طراحی پرامپت‌های تخصصی و قابل تکرار.",
+    category: "technology",
+    durationHours: null,
+    format: "in-person",
+    registrationUrl: "/register/hr-prompt-engineering",
+    imageUrl: "/images/courses/hr-prompt-engineering.jpg",
+    seoDescription:
+      "استفاده حرفه‌ای از هوش مصنوعی در منابع انسانی به شناخت مسئله و کیفیت تعامل با مدل وابسته است. این کارگاه به طراحی پرامپت برای تحلیل اطلاعات تخصصی HR می‌پردازد و کاربردهای آن را در جذب، توسعه و مدیریت عملکرد بررسی می‌کند. مدرس: دکتر عسل آغاز.",
+  },
+  {
+    id: "crs-branding",
+    slug: "branding",
+    title: "برندینگ",
+    summary:
+      "بررسی هویت و جایگاه برند در ارتباط با تجربه مخاطب، ارتباطات و ارزش برند؛ با مطالعه نمونه‌ها و کار عملی طراحی و توسعه برند.",
     category: "innovation",
-    durationHours: 18,
-    format: "online",
-    registrationUrl: "/register/innovation-strategy",
-    imageUrl:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
-    seoDescription: "دوره استراتژی نوآوری — آموزش آزاد امیرکبیر",
+    durationHours: null,
+    format: "in-person",
+    registrationUrl: "/register/branding",
+    imageUrl: "/images/courses/branding.jpg",
+    seoDescription:
+      "برند در ارتباط میان هویت کسب‌وکار و تجربه مخاطب شکل می‌گیرد. این کارگاه به تصمیم‌های مؤثر بر این ارتباط می‌پردازد؛ از شناخت مخاطب و ارزش پیشنهادی تا روایت، تجربه و ارزیابی برند. مدرس: دکتر علیرضا شیخ. شعار منبع: از معنا و هویت تا تجربه و وفاداری.",
   },
   {
-    id: "crs-energy",
-    slug: "energy-sustainability",
-    title: "انرژی و پایداری",
+    id: "crs-marketing",
+    slug: "marketing",
+    title: "مارکتینگ",
     summary:
-      "چالش‌های انرژی، اقتصاد چرخشی و فرصت‌های پایداری برای صنعت و خدمات.",
-    category: "energy",
-    durationHours: 16,
-    format: "online",
-    registrationUrl: "/register/energy-sustainability",
-    imageUrl:
-      "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80",
-    seoDescription: "دوره انرژی و پایداری — آموزش آزاد امیرکبیر",
-  },
-  {
-    id: "crs-design",
-    slug: "design-thinking",
-    title: "تفکر طراحی و ساخت محصول",
-    summary:
-      "از مسئله تا نمونه اولیه: روش‌های design thinking برای تیم‌های محصول و عملیات.",
-    category: "design",
-    durationHours: 22,
-    format: "blended",
-    registrationUrl: "/register/design-thinking",
-    imageUrl:
-      "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&q=80",
-    seoDescription: "دوره تفکر طراحی — آموزش آزاد امیرکبیر",
-  },
-  {
-    id: "crs-digital",
-    slug: "digital-transformation",
-    title: "تحول دیجیتال سازمان",
-    summary:
-      "چارچوب تحول دیجیتال، حاکمیت داده و هم‌راستایی فناوری با استراتژی کسب‌وکار.",
+      "بررسی مسیر تصمیم‌گیری بازاریابی، از شناخت مشتری و ارزش پیشنهادی تا استراتژی، کمپین و ارزیابی عملکرد؛ با توجه به کاربرد داده و هوش مصنوعی.",
     category: "digital",
-    durationHours: 28,
-    format: "online",
-    registrationUrl: "/register/digital-transformation",
-    imageUrl:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&q=80",
-    seoDescription: "دوره تحول دیجیتال — آموزش آزاد امیرکبیر",
+    durationHours: null,
+    format: "in-person",
+    registrationUrl: "/register/marketing",
+    imageUrl: "/images/courses/marketing.jpg",
+    seoDescription:
+      "تصمیم‌های بازاریابی به شناخت بازار، رفتار مشتری و ارزیابی نتیجه وابسته‌اند. این کارگاه ارتباط میان تحقیقات بازار، انتخاب استراتژی، طراحی کمپین و شاخص‌های عملکرد را بررسی می‌کند. مدرس: دکتر علیرضا شیخ. شعار منبع: از شناخت مشتری تا طراحی استراتژی و اجرای کمپین.",
+  },
+  {
+    id: "crs-branding-marketing",
+    slug: "branding-marketing-in-practice",
+    title: "برندینگ و مارکتینگ در عمل",
+    summary:
+      "نگاهی یکپارچه به هویت برند، استراتژی بازاریابی و عملکرد بازار؛ همراه با مطالعه موردی و پروژه عملی برای بررسی ارتباط این تصمیم‌ها.",
+    category: "digital",
+    durationHours: null,
+    format: "in-person",
+    registrationUrl: "/register/branding-marketing-in-practice",
+    imageUrl: "/images/courses/branding-marketing-practice.jpg",
+    seoDescription:
+      "هویت برند، ارزش پیشنهادی و فعالیت‌های بازاریابی بر یکدیگر اثر می‌گذارند. این کارگاه ارتباط میان آن‌ها را در تصمیم‌های کسب‌وکار بررسی می‌کند: از شناخت بازار و طراحی استراتژی برند تا انتخاب کانال، طراحی کمپین و تحلیل شاخص‌های عملکرد. مدرس: دکتر علیرضا شیخ. شعار منبع: از هویت برند تا رشد پایدار کسب‌وکار.",
+  },
+  {
+    id: "crs-managerial-dialogue",
+    slug: "managerial-dialogue",
+    title: "هم‌اندیشی مدیریتی",
+    summary:
+      "گفت‌وگوی یک‌به‌یک مدیر با استاد یا متخصص مرتبط، برای بررسی مسئله واقعی سازمان، بازبینی فرض‌ها و روشن‌ترشدن گزینه‌های تصمیم.",
+    category: "leadership",
+    durationHours: null,
+    format: "in-person",
+    registrationUrl: "/register/managerial-dialogue",
+    imageUrl: "/images/courses/managerial-dialogue.jpg",
+    seoDescription:
+      "هم‌اندیشی مدیریتی از مسئله‌ای آغاز می‌شود که مدیر با خود به جلسه می‌آورد. موضوع و انتظار او پیش از جلسه مشخص می‌شود و متخصص مرتبط با آن پیشنهاد می‌شود. گفت‌وگو به بررسی ابعاد مسئله، فرضیات و گزینه‌های تصمیم اختصاص دارد. زیرعنوان منبع: گفت‌وگویی تخصصی برای مواجهه با مسائل واقعی مدیریت.",
   },
 ];

@@ -128,7 +128,9 @@ export function CategoryCourseExplorer({
               </CardDescription>
               <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-background/55">
                 <span>
-                  {course.durationHours} ساعت · {formatLabel(course.format)}
+                  {course.durationHours
+                    ? `${course.durationHours} ساعت · ${formatLabel(course.format)}`
+                    : formatLabel(course.format)}
                 </span>
                 {priceLabel ? (
                   <span className="font-semibold text-background/90">

@@ -17,15 +17,18 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const t = await getTranslations("pages");
   const topics = await getTopics();
 
   return (
     <main id="main-content">
-      <PageHero title={t("aboutTitle")} intro={siteMission} />
+      <PageHero
+        eyebrow="درباره مرکز آموزش‌های آزاد"
+        title="آموزش مدیریت با پشتوانه امیرکبیر"
+        intro="مرکز آموزش‌های آزاد دانشکده مدیریت، علم و فناوری دانشگاه صنعتی امیرکبیر، بر آموزش مدیران و تیم‌های مدیریتی برای تحول در صنعت تمرکز دارد. دوره‌های ما به تصمیم‌گیری داده‌محور، به‌کارگیری هوش مصنوعی در کسب‌وکار و مدیریت اجرای تغییر در سازمان می‌پردازند."
+      />
       <Section className="relative overflow-hidden">
         <Container>
-          <p className="text-xs font-bold text-primary">مسیرهای اثرگذاری</p><Heading level={2} className="mt-2 text-3xl sm:text-4xl">حوزه‌های تمرکز</Heading>
+          <p className="text-xs font-bold text-primary">آنچه می‌آموزید</p><Heading level={2} className="mt-2 text-3xl sm:text-4xl">توانمندی‌های مدیریتی برای تحول در صنعت</Heading>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {aboutFocusAreas.map((area) => (
               <SurfaceCard key={area.title}>
@@ -42,7 +45,7 @@ export default async function AboutPage() {
       </Section>
       <Section tone="muted">
         <Container>
-          <p className="text-xs font-bold text-primary">نگاه میان‌رشته‌ای</p><Heading level={2} className="mt-2 text-3xl sm:text-4xl">تقاطع مدیریت و فناوری</Heading>
+          <p className="text-xs font-bold text-primary">حوزه‌های آموزشی</p><Heading level={2} className="mt-2 text-3xl sm:text-4xl">موضوع مورد نیاز خود را پیدا کنید</Heading>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {topics.map((topic) => (
               <SurfaceCard key={topic.id} padded="sm" className="h-full">
@@ -58,7 +61,7 @@ export default async function AboutPage() {
             ))}
           </div>
           <Link href="/programs" className={cn(buttonVariants(), "mt-8")}>
-            کشف برنامه‌ها
+            مشاهده برنامه‌های آموزشی
           </Link>
         </Container>
       </Section>

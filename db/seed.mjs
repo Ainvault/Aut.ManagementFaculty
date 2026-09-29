@@ -85,6 +85,12 @@ async function main() {
       "id", "slug", "title", "summary", "category", "duration_hours", "format", "price",
       "registration_url", "image_url", "seo_description", "published",
     ]);
+    const courseIds = courses.map((c) => c.id);
+    await client.query(
+      `DELETE FROM courses WHERE id <> ALL($1::text[])`,
+      [courseIds],
+    );
+    results.push(["courses_pruned", courseIds.length]);
     await upsert("programs", programs.map(programToRow), [
       "id", "slug", "title", "blurb", "group_key", "href", "tagline", "audience",
       "duration_label", "format_label", "highlights", "body", "published",
@@ -96,11 +102,14 @@ async function main() {
       "id", "title", "category", "excerpt", "image_url", "href", "featured",
       "body", "published_at", "author", "published",
     ]);
+    await client.query(`DELETE FROM intersection_topics`);
     await upsert("intersection_topics", intersections.map(intersectionTopicToRow), [
       "id", "slug", "title", "description", "href", "image_url", "body", "highlights", "published",
     ]);
     await upsert("faculty_members", faculty.map(facultyMemberToRow), [
-      "id", "name", "title", "focus", "bio", "image_url", "published",
+      "id", "name", "title", "focus", "bio", "image_url",
+      "email", "office", "phone", "department", "linkedin_url", "scholar_url",
+      "published",
     ]);
     await upsert("alumni_stories", alumniStories.map(alumniStoryToRow), [
       "id", "title", "excerpt", "name", "program", "image_url", "href", "published",

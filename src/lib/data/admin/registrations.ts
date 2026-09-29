@@ -7,6 +7,8 @@ export interface AdminRegistration {
   full_name: string;
   email: string;
   phone: string | null;
+  position: string | null;
+  organization: string | null;
   message: string | null;
   source: string;
   status: string;
@@ -30,7 +32,7 @@ export async function listAdminRegistrations(
     params.push(search);
     const p = `$${params.length}`;
     where.push(
-      `(full_name ILIKE '%' || ${p} || '%' OR email ILIKE '%' || ${p} || '%' OR COALESCE(course_slug, '') ILIKE '%' || ${p} || '%')`,
+      `(full_name ILIKE '%' || ${p} || '%' OR email ILIKE '%' || ${p} || '%' OR COALESCE(course_slug, '') ILIKE '%' || ${p} || '%' OR COALESCE(position, '') ILIKE '%' || ${p} || '%' OR COALESCE(organization, '') ILIKE '%' || ${p} || '%')`,
     );
   }
   if (status) {

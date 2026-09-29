@@ -6,7 +6,7 @@ import {
   HomeRest,
   type HomeLabels,
 } from "@/components/templates/HomeTemplate";
-import { getArticles, getFeaturedArticle } from "@/lib/data/articles";
+import { getFeaturedArticle } from "@/lib/data/articles";
 import { getEvents } from "@/lib/data/events";
 import { getPrograms } from "@/lib/data/programs";
 import { getSiteStats, getTopics } from "@/lib/data/site";
@@ -39,13 +39,7 @@ async function HeroSection() {
     getFeaturedArticle(),
     getLabels(),
   ]);
-  if (!featured) return null;
   return <HomeHero featured={featured} eyebrow={labels.ideasEyebrow} />;
-}
-
-async function IdeasSection() {
-  const [articles, labels] = await Promise.all([getArticles(), getLabels()]);
-  return <HomeIdeas articles={articles} title={labels.ideasTitle} />;
 }
 
 async function EventsSection() {
@@ -90,7 +84,7 @@ export default function HomePage() {
   return (
     <main id="main-content">
       <HeroSection />
-      <IdeasSection />
+      <HomeIdeas />
       <EventsSection />
       <RestSection />
     </main>

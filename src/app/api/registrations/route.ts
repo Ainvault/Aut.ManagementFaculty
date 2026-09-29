@@ -33,14 +33,16 @@ export async function POST(request: NextRequest) {
 
     await query(
       `INSERT INTO registration_leads
-         (course_id, course_slug, full_name, email, phone, message, source)
-       VALUES ($1, $2, $3, $4, NULLIF($5, ''), NULLIF($6, ''), 'register_page')`,
+         (course_id, course_slug, full_name, email, phone, position, organization, message, source)
+       VALUES ($1, $2, $3, $4, NULLIF($5, ''), $6, $7, NULLIF($8, ''), 'register_page')`,
       [
         course?.rows[0]?.id ?? null,
         courseSlug,
         d.fullName,
         d.email,
         d.phone,
+        d.position,
+        d.organization,
         d.message,
       ],
     );
