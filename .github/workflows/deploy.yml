@@ -137,10 +137,15 @@ jobs:
 
       - name: Restart container
         env:
-          DATABASE_URL: postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@185.36.145.12:5432/ManagmentWebSite_Db
+          # Same-host Docker: use Postgres container DNS name on shared_web_network.
+          # Public IP (185.36.145.12) works from outside the server, not from sibling containers.
+          DATABASE_URL: postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@insaight-postgres:5432/ManagmentWebSite_Db
         run: |
           set -euo pipefail
           docker rm -f "$CONTAINER_NAME" 2>/dev/null || true
+
+          # Ensure Postgres is reachable by name on the shared network
+          docker network connect "$NETWORK_NAME" insaight-postgres 2>/dev/null || true
 
           RUN_ARGS=(
             -d
@@ -157,6 +162,21 @@ jobs:
           docker run "${RUN_ARGS[@]}" "$IMAGE_NAME"
           sleep 2
           docker logs "$CONTAINER_NAME" 2>&1 | tail -n 30
+
+          if ! docker exec "$CONTAINER_NAME" node -e "
+            const { Pool } = require('pg');
+            const pool = new Pool({
+              connectionString: process.env.DATABASE_URL,
+              connectionTimeoutMillis: 5000,
+            });
+            pool.query('SELECT 1')
+              .then(() => { console.log('DB_OK'); return pool.end(); })
+              .catch(async (e) => { console.error('DB_FAIL', e.message); try { await pool.end(); } catch {} process.exit(1); });
+          "; then
+            echo "::error::Cannot reach insaight-postgres via DATABASE_URL on ${NETWORK_NAME}"
+            docker logs "$CONTAINER_NAME" 2>&1 | tail -n 50
+            exit 1
+          fi
 
           echo "Deployed ${CONTAINER_NAME} on ${NETWORK_NAME}"
           echo "Point Nginx Proxy Manager: ${PUBLIC_HOST} → http://${CONTAINER_NAME}:3000"

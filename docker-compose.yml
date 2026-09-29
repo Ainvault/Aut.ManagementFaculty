@@ -12,8 +12,9 @@ services:
       - PORT=3000
       - HOSTNAME=0.0.0.0
       - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://edu.mstaut.ir}
-      - DATABASE_URL=${DATABASE_URL:-postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@185.36.145.12:5432/ManagmentWebSite_Db}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@insaight-postgres:5432/ManagmentWebSite_Db}
     # Nginx Proxy Manager: edu.mstaut.ir → http://aut-management-faculty:3000
+    # DB: same Docker network as container `insaight-postgres` (not the public IP).
     expose:
       - "3000"
     networks:

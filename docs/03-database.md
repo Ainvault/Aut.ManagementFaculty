@@ -25,19 +25,28 @@
 
 ## Connection string
 
+از **خارج سرور** (لپ‌تاپ / migrate / seed):
+
 ```
 postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@185.36.145.12:5432/ManagmentWebSite_Db
 ```
 
-برای اپلیکیشن از متغیر محیطی استفاده شود:
+از **داخل Docker** روی همان سرور (کانتینر وب → کانتینر `insaight-postgres` روی `shared_web_network`):
+
+```
+postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@insaight-postgres:5432/ManagmentWebSite_Db
+```
+
+برای اپلیکیشن از متغیر محیطی استفاده شود. در `deploy.yml` / `docker-compose.yml` هاست `insaight-postgres` است.
 
 ```env
+# local (.env.local)
 DATABASE_URL=postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@185.36.145.12:5432/ManagmentWebSite_Db
 ```
 
 فایل محلی: `.env.local` (در gitignore است).
 
-Production (Docker و CI) هم باید مستقیم به `185.36.145.12` وصل شود — نه DNS داخلی Docker.
+Production باید مستقیم به نام کانتینر `insaight-postgres` وصل شود (نه IP عمومی از داخل bridge).
 
 ## تست سریع اتصال
 
