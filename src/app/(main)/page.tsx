@@ -35,49 +35,80 @@ async function getLabels(): Promise<HomeLabels> {
 }
 
 async function HeroSection() {
-  const [featured, labels] = await Promise.all([
-    getFeaturedArticle(),
-    getLabels(),
-  ]);
-  return <HomeHero featured={featured} eyebrow={labels.ideasEyebrow} />;
+  try {
+    const [featured, labels] = await Promise.all([
+      getFeaturedArticle(),
+      getLabels(),
+    ]);
+    return <HomeHero featured={featured} eyebrow={labels.ideasEyebrow} />;
+  } catch (err) {
+    console.error("[home] HeroSection failed:", err);
+    const labels = await getLabels();
+    return <HomeHero featured={null} eyebrow={labels.ideasEyebrow} />;
+  }
 }
 
 async function EventsSection() {
-  const [events, labels] = await Promise.all([getEvents(), getLabels()]);
-  return (
-    <HomeEvents
-      events={events}
-      title={labels.eventsTitle}
-      seeAllLabel={labels.seeAllEvents}
-    />
-  );
+  try {
+    const [events, labels] = await Promise.all([getEvents(), getLabels()]);
+    return (
+      <HomeEvents
+        events={events}
+        title={labels.eventsTitle}
+        seeAllLabel={labels.seeAllEvents}
+      />
+    );
+  } catch (err) {
+    console.error("[home] EventsSection failed:", err);
+    const labels = await getLabels();
+    return (
+      <HomeEvents
+        events={[]}
+        title={labels.eventsTitle}
+        seeAllLabel={labels.seeAllEvents}
+      />
+    );
+  }
 }
 
 async function RestSection() {
-  const [programs, intersections, stats, labels] = await Promise.all([
-    getPrograms(),
-    getTopics(),
-    getSiteStats(),
-    getLabels(),
-  ]);
-  const carouselPrograms = programs.filter((p) =>
-    [
-      "management-core",
-      "evening-management",
-      "executive",
-      "leadership-fellows",
-      "business-analytics",
-      "finance",
-    ].includes(p.slug),
-  );
-  return (
-    <HomeRest
-      labels={labels}
-      carouselPrograms={carouselPrograms}
-      intersections={intersections}
-      stats={stats}
-    />
-  );
+  try {
+    const [programs, intersections, stats, labels] = await Promise.all([
+      getPrograms(),
+      getTopics(),
+      getSiteStats(),
+      getLabels(),
+    ]);
+    const carouselPrograms = programs.filter((p) =>
+      [
+        "management-core",
+        "evening-management",
+        "executive",
+        "leadership-fellows",
+        "business-analytics",
+        "finance",
+      ].includes(p.slug),
+    );
+    return (
+      <HomeRest
+        labels={labels}
+        carouselPrograms={carouselPrograms}
+        intersections={intersections}
+        stats={stats}
+      />
+    );
+  } catch (err) {
+    console.error("[home] RestSection failed:", err);
+    const labels = await getLabels();
+    return (
+      <HomeRest
+        labels={labels}
+        carouselPrograms={[]}
+        intersections={[]}
+        stats={[]}
+      />
+    );
+  }
 }
 
 export default function HomePage() {

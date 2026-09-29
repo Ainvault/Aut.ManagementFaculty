@@ -137,7 +137,11 @@ jobs:
 
       - name: Restart container
         env:
-          DATABASE_URL: postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@185.36.145.12:5432/ManagmentWebSite_Db
+          # Postgres runs on the Docker host. From inside a bridge network,
+          # the public IP often times out (hairpin/NAT). Reach it via the
+          # host gateway instead — requires Postgres listening on 0.0.0.0
+          # (or docker0) and pg_hba allowing the Docker subnet.
+          DATABASE_URL: postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@host.docker.internal:5432/ManagmentWebSite_Db
         run: |
           set -euo pipefail
           docker rm -f "$CONTAINER_NAME" 2>/dev/null || true
@@ -147,6 +151,7 @@ jobs:
             --name "$CONTAINER_NAME"
             --restart unless-stopped
             --network "$NETWORK_NAME"
+            --add-host=host.docker.internal:host-gateway
             -e NODE_ENV=production
             -e PORT=3000
             -e HOSTNAME=0.0.0.0
@@ -157,6 +162,22 @@ jobs:
           docker run "${RUN_ARGS[@]}" "$IMAGE_NAME"
           sleep 2
           docker logs "$CONTAINER_NAME" 2>&1 | tail -n 30
+
+          # Fail the job early if the app cannot reach Postgres from the container
+          if ! docker exec "$CONTAINER_NAME" node -e "
+            const { Pool } = require('pg');
+            const pool = new Pool({
+              connectionString: process.env.DATABASE_URL,
+              connectionTimeoutMillis: 5000,
+            });
+            pool.query('SELECT 1')
+              .then(() => { console.log('DB_OK'); return pool.end(); })
+              .catch(async (e) => { console.error('DB_FAIL', e.message); try { await pool.end(); } catch {} process.exit(1); });
+          "; then
+            echo "::error::Container cannot reach Postgres via DATABASE_URL"
+            docker logs "$CONTAINER_NAME" 2>&1 | tail -n 50
+            exit 1
+          fi
 
           echo "Deployed ${CONTAINER_NAME} on ${NETWORK_NAME}"
           echo "Point Nginx Proxy Manager: ${PUBLIC_HOST} → http://${CONTAINER_NAME}:3000"

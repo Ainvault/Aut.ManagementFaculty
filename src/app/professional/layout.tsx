@@ -14,7 +14,13 @@ export default async function ProfessionalLayout({
 }>) {
   const t = await getTranslations();
   const year = new Date().getFullYear();
-  const [courses, programs] = await Promise.all([getCourses(), getPrograms()]);
+  let courses: Awaited<ReturnType<typeof getCourses>> = [];
+  let programs: Awaited<ReturnType<typeof getPrograms>> = [];
+  try {
+    [courses, programs] = await Promise.all([getCourses(), getPrograms()]);
+  } catch (err) {
+    console.error("[professional/layout] CMS fetch failed:", err);
+  }
 
   return (
     <>

@@ -18,11 +18,18 @@ export default async function MainLayout({
 }>) {
   const t = await getTranslations();
   const year = new Date().getFullYear();
-  const [courses, programs, banners] = await Promise.all([
-    getCourses(),
-    getPrograms(),
-    getCampaignBanners(),
-  ]);
+  let courses: Awaited<ReturnType<typeof getCourses>> = [];
+  let programs: Awaited<ReturnType<typeof getPrograms>> = [];
+  let banners: Awaited<ReturnType<typeof getCampaignBanners>> = [];
+  try {
+    [courses, programs, banners] = await Promise.all([
+      getCourses(),
+      getPrograms(),
+      getCampaignBanners(),
+    ]);
+  } catch (err) {
+    console.error("[main/layout] CMS fetch failed:", err);
+  }
 
   return (
     <>
