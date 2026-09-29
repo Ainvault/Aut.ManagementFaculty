@@ -13,18 +13,27 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function FacultyPage() {
   const t = await getTranslations("pages");
-  const members = await getFaculty();
+  let members: Awaited<ReturnType<typeof getFaculty>> = [];
+  try {
+    members = await getFaculty();
+  } catch (err) {
+    console.error("[faculty] getFaculty failed:", err);
+  }
 
   return (
     <main id="main-content">
       <PageHero title={t("facultyTitle")} intro={t("facultyIntro")} />
       <Section className="bg-gradient-to-b from-background to-muted/40">
         <Container>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {members.map((member) => (
-              <FacultyMemberCard key={member.id} member={member} />
-            ))}
-          </div>
+          {members.length === 0 ? (
+            <p className="text-muted-foreground">در حال حاضر مدرسی برای نمایش نیست.</p>
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {members.map((member) => (
+                <FacultyMemberCard key={member.id} member={member} />
+              ))}
+            </div>
+          )}
         </Container>
       </Section>
     </main>

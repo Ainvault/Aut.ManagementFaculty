@@ -37,18 +37,7 @@ DATABASE_URL=postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@185.36.145.12:5
 
 فایل محلی: `.env.local` (در gitignore است).
 
-### Docker (همان سرور Postgres)
-
-اگر اپ داخل کانتینر bridge و Postgres روی host باشد، از داخل کانتینر به IP عمومی
-(`185.36.145.12`) اغلب **timeout** می‌خورید. در `deploy.yml` / `docker-compose.yml`
-از `host.docker.internal` (+ `--add-host=host.docker.internal:host-gateway`) استفاده می‌شود.
-
-پیش‌نیاز روی host:
-
-- `listen_addresses` در Postgres شامل اینترفیس docker/host-gateway باشد (مثلاً `*`)
-- در `pg_hba.conf` شبکهٔ Docker مجاز باشد (مثلاً `172.16.0.0/12`)
-
-برای تست از داخل کانتینر: `docker exec <web> node scripts/test-db-connection.mjs` با همان `DATABASE_URL`.
+Production (Docker و CI) هم باید مستقیم به `185.36.145.12` وصل شود — نه DNS داخلی Docker.
 
 ## تست سریع اتصال
 

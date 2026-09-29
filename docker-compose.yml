@@ -12,10 +12,7 @@ services:
       - PORT=3000
       - HOSTNAME=0.0.0.0
       - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://edu.mstaut.ir}
-      # Prefer host.docker.internal when Postgres is on the same machine as Docker.
-      - DATABASE_URL=${DATABASE_URL:-postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@host.docker.internal:5432/ManagmentWebSite_Db}
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - DATABASE_URL=${DATABASE_URL:-postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@185.36.145.12:5432/ManagmentWebSite_Db}
     # Nginx Proxy Manager: edu.mstaut.ir → http://aut-management-faculty:3000
     expose:
       - "3000"

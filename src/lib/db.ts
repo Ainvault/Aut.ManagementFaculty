@@ -5,10 +5,7 @@ const { Pool } = pg;
 /**
  * Shared Postgres pool for server-side use.
  * Connection details: docs/03-database.md
- *
- * In Docker on the same host as Postgres, prefer
- * `host.docker.internal` (see deploy.yml / docker-compose.yml).
- * Connecting to the public IP from a bridge network often times out.
+ * Production must use DATABASE_URL → 185.36.145.12 (not Docker-internal DNS).
  */
 export const pool = new Pool({
   connectionString:
@@ -16,8 +13,7 @@ export const pool = new Pool({
     "postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@185.36.145.12:5432/ManagmentWebSite_Db",
   max: 5,
   idleTimeoutMillis: 30000,
-  // Fail fast so a dead DB does not pin every request for 10s+
-  connectionTimeoutMillis: 4000,
+  connectionTimeoutMillis: 10000,
 });
 
 pool.on("error", (err) => {
