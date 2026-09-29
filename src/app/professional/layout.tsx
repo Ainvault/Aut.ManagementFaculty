@@ -5,6 +5,8 @@ import { getCourses } from "@/lib/data/courses";
 import { getPrograms } from "@/lib/data/programs";
 import { professionalNav, siteShortName } from "@/lib/site-config";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProfessionalLayout({
   children,
 }: Readonly<{

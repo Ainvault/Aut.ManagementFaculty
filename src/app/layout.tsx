@@ -61,7 +61,7 @@ const iranSans = localFont({
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("meta");
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://aut.insaight.net";
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://edu.mstaut.ir";
   return {
     metadataBase: new URL(siteUrl),
     title: {

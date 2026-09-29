@@ -7,6 +7,10 @@ import { getPrograms } from "@/lib/data/programs";
 import { getCampaignBanners } from "@/lib/data/site";
 import { homeNav, siteShortName } from "@/lib/site-config";
 
+// Public CMS pages must read Postgres at request time — static bake at Docker
+// build often has no DATABASE_URL and ships empty lists.
+export const dynamic = "force-dynamic";
+
 export default async function MainLayout({
   children,
 }: Readonly<{

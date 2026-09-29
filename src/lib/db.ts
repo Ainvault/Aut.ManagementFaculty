@@ -8,7 +8,7 @@ const { Pool } = pg;
  */
 export const pool = new Pool({
   connectionString:
-    process.env.DATABASE_URL ??
+    process.env.DATABASE_URL ||
     "postgresql://managment_web:hD3H9seTqX1GJMu1mDJBGDYr@185.36.145.12:5432/ManagmentWebSite_Db",
   max: 5,
   idleTimeoutMillis: 30000,
