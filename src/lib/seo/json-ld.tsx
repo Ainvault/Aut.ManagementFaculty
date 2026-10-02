@@ -29,7 +29,7 @@ export function courseJsonLd(course: Course) {
       name: siteName,
     },
     url: course.registrationUrl,
-    image: course.imageUrl,
+    image: course.posterImageUrl,
     educationalCredentialAwarded: "گواهی دانشکده مدیریت علم و فناوری",
   };
   if (course.price != null && Number.isFinite(course.price) && course.price >= 0) {

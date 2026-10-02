@@ -36,7 +36,9 @@ const courseFields = {
     .union([z.number().int().nonnegative("قیمت نمی‌تواند منفی باشد"), z.null()])
     .optional(),
   registrationUrl: urlOrPath,
-  imageUrl: urlOrPath,
+  posterImageUrl: urlOrPath,
+  brochureImageUrl: urlOrPath,
+  tags: z.array(z.string()).default([]),
   seoDescription: z.string(),
   published: z.boolean(),
 };

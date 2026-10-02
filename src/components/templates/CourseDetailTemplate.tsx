@@ -78,7 +78,7 @@ export function CourseDetailTemplate({
         title={course.title}
         intro={course.summary}
         eyebrow={categoryLabel(course.category)}
-        imageUrl={course.imageUrl}
+        imageUrl={course.posterImageUrl}
       />
 
       <Section className="bg-gradient-to-b from-background to-muted/40">
@@ -87,7 +87,7 @@ export function CourseDetailTemplate({
             <div className="overflow-hidden rounded-2xl ring-1 ring-border">
               <div className="relative aspect-[16/9] bg-muted">
                 <Image
-                  src={course.imageUrl}
+                  src={course.brochureImageUrl}
                   alt={course.title}
                   fill
                   className="object-cover"

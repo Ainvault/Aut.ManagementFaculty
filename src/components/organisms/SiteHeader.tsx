@@ -8,6 +8,12 @@ import { BrandLogo } from "@/components/atoms/BrandLogo";
 import { Container } from "@/components/atoms/Container";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { SearchOverlay } from "@/components/organisms/SearchOverlay";
 import type { Course, NavItem, Program } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -85,20 +91,79 @@ export function SiteHeader({
             className="hidden min-w-0 flex-1 items-center justify-start gap-0.5 xl:flex"
             aria-label="منوی اصلی"
           >
-            {items.map((item) => (
-              <Link
-                key={item.href + item.label}
-                href={item.href}
-                className={cn(
-                  "rounded-lg px-2.5 py-2 text-sm font-semibold transition-colors",
-                  isDark
-                    ? "text-background/80 hover:text-background"
-                    : "text-foreground/75 hover:bg-muted hover:text-primary",
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {items.map((item) => {
+              if (item.label.includes("دوره‌ها") || item.label.includes("فهرست")) {
+                return (
+                  <DropdownMenu key={item.href + item.label}>
+                    <DropdownMenuTrigger
+                      className={cn(
+                        "rounded-lg px-2.5 py-2 text-sm font-semibold transition-colors outline-none cursor-pointer inline-flex items-center gap-1",
+                        isDark
+                          ? "text-background/80 hover:text-background"
+                          : "text-foreground/75 hover:bg-muted hover:text-primary",
+                      )}
+                    >
+                      {item.label}
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="z-[60] w-56 p-1">
+                      <DropdownMenuItem>
+                        <Link href="/professional" className="w-full cursor-pointer">
+                          همه دوره‌ها
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href="/professional#programs" className="w-full cursor-pointer">
+                          کارگاه‌ها
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href="/professional#programs" className="w-full cursor-pointer">
+                          دوره‌های سازمانی
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href="/professional#programs" className="w-full cursor-pointer">
+                          گزیده دوره‌های برگزار شده
+                        </Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                );
+              }
+              return item.prominent ? (
+                <Link
+                  key={item.href + item.label}
+                  href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    item.href.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  className={cn(
+                    "ms-1 inline-flex items-center rounded-md border px-2.5 py-1 text-xs font-bold transition-all shadow-sm",
+                    isDark
+                      ? "border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                      : "border-primary/30 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <Link
+                  key={item.href + item.label}
+                  href={item.href}
+                  className={cn(
+                    "rounded-lg px-2.5 py-2 text-sm font-semibold transition-colors",
+                    isDark
+                      ? "text-background/80 hover:text-background"
+                      : "text-foreground/75 hover:bg-muted hover:text-primary",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             <Button
               variant="outline"
               size="sm"
@@ -174,7 +239,19 @@ export function SiteHeader({
                 <li key={item.href + item.label}>
                   <Link
                     href={item.href}
-                    className="block py-3.5 text-lg font-bold transition-colors hover:text-background/70"
+                    target={
+                      item.href.startsWith("http") ? "_blank" : undefined
+                    }
+                    rel={
+                      item.href.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    className={cn(
+                      "block py-3.5 text-lg font-bold transition-colors hover:text-background/70",
+                      item.prominent &&
+                        "inline-block text-primary underline underline-offset-4"
+                    )}
                     onClick={() => setMobileOpen(false)}
                   >
                     {item.label}

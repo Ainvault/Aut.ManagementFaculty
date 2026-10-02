@@ -20,8 +20,11 @@ export interface Course {
   /** Optional price in toman; omit/null = do not show price in UI */
   price?: number | null;
   registrationUrl: string;
-  imageUrl: string;
+  posterImageUrl: string;
+  brochureImageUrl: string;
   seoDescription: string;
+  /** Tags for filtering (e.g., "کارگاه", "دوره سازمانی", "گزیده") */
+  tags?: string[];
 }
 
 export type ProgramGroup = "standard" | "executive";
@@ -93,6 +96,7 @@ export interface NavItem {
   label: string;
   href: string;
   children?: NavItem[];
+  prominent?: boolean;
 }
 
 export interface FacultyMember {

@@ -31,10 +31,11 @@ export const siteAddress = {
 /** Main nav labels for Persian users */
 export const homeNav: NavItem[] = [
   { label: "ارزش‌ها", href: "/values" },
-  { label: "اساتید", href: "/faculty" },
+  { label: "اساتید", href: "https://mst.aut.ac.ir/content/31094/شبکه-اساتید" },
   { label: "درباره ما", href: "/about" },
   { label: "دوره‌های کوتاه", href: "/professional" },
   { label: "دوره‌های صنعتی", href: "/professional" },
+  { label: "دانشگاه امیرکبیر", href: "https://mst.aut.ac.ir/", prominent: true },
 ];
 
 export const professionalNav: NavItem[] = [

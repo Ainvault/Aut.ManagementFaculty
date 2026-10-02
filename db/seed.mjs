@@ -83,7 +83,7 @@ async function main() {
 
     await upsert("courses", courses.map(courseToRow), [
       "id", "slug", "title", "summary", "category", "duration_hours", "format", "price",
-      "registration_url", "image_url", "seo_description", "published",
+      "registration_url", "poster_image_url", "brochure_image_url", "image_url", "seo_description", "published",
     ]);
     const courseIds = courses.map((c) => c.id);
     await client.query(

@@ -42,7 +42,18 @@ export function CourseTable({ courses }: { courses: AdminCourse[] }) {
         <TableBody>
           {courses.map((course) => (
             <TableRow key={course.id}>
-              <TableCell className="font-medium">{course.title}</TableCell>
+              <TableCell className="font-medium">
+                <div>{course.title}</div>
+                {course.tags && course.tags.length > 0 ? (
+                  <div className="mt-1 flex flex-wrap gap-1">
+                    {course.tags.map((tag) => (
+                      <Badge key={tag} variant="outline" className="text-[10px] px-1.5 py-0">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                ) : null}
+              </TableCell>
               <TableCell>
                 <Badge variant="secondary">{categoryLabel(course.category)}</Badge>
               </TableCell>

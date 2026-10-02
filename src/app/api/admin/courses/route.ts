@@ -56,11 +56,11 @@ export async function POST(request: NextRequest) {
     await query(
       `INSERT INTO courses
          (id, slug, title, summary, category, duration_hours, format, price,
-          registration_url, image_url, seo_description, published)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,
+          registration_url, poster_image_url, brochure_image_url, image_url, seo_description, tags, published)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,
       [
         id, d.slug, d.title, d.summary, d.category, d.durationHours ?? null, d.format,
-        d.price ?? null, d.registrationUrl, d.imageUrl, d.seoDescription, d.published,
+        d.price ?? null, d.registrationUrl, d.posterImageUrl, d.brochureImageUrl, d.posterImageUrl, d.seoDescription, d.tags ?? [], d.published,
       ],
     );
     const res = await query<CourseRow>(`SELECT * FROM courses WHERE id = $1`, [id]);

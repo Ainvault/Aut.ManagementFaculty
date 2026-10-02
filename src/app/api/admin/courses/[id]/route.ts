@@ -38,8 +38,10 @@ const COURSE_COLUMNS: Record<string, string> = {
   format: "format",
   price: "price",
   registrationUrl: "registration_url",
-  imageUrl: "image_url",
+  posterImageUrl: "poster_image_url",
+  brochureImageUrl: "brochure_image_url",
   seoDescription: "seo_description",
+  tags: "tags",
   published: "published",
 };
 

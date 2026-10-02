@@ -12,7 +12,8 @@ export const courses: Course[] = [
     durationHours: null,
     format: "in-person",
     registrationUrl: "/register/ai-organizational-transformation",
-    imageUrl: "/images/courses/ai-organizational-transformation.png",
+    posterImageUrl: "/images/courses/ai-organizational-transformation-poster.png",
+    brochureImageUrl: "/images/courses/ai-organizational-transformation-brochure.png",
     seoDescription:
       "دوره تخصصی دوروزه تحول سازمانی با هوش مصنوعی. مسیر یادگیری از مسئله سازمانی تا نقش انسان و AI، انتخاب مسیر، مدیریت محصول AI، داده و حاکمیت، ساخت و آزمون (Prompt، chatbot، AI Agent) و تشخیص کاربرد مناسب. محورها: ۱) آمادگی و مدیریت تغییر — دکتر آغاز؛ ۲) تحول با هوش مصنوعی — دکتر هراتی‌نیک؛ ۳) چرخه عمر محصول AI — دکتر سلیمی‌نمین؛ ۴) حاکمیت داده — دکتر روشنی؛ ۵) تجربه عملی AI Fluency و دستیاران صنعتی آموزشی — مهندس متین صفار و مهندس محمدحسین کشفی. شعار دوره: A SMARTER TOMORROW BY BETTER DECISIONS.",
   },
@@ -26,7 +27,8 @@ export const courses: Course[] = [
     durationHours: null,
     format: "in-person",
     registrationUrl: "/register/ai-fluency",
-    imageUrl: "/images/courses/ai-fluency.jpg",
+    posterImageUrl: "/images/courses/ai-fluency-poster.jpg",
+    brochureImageUrl: "/images/courses/ai-fluency-brochure.jpg",
     seoDescription:
       "کارگاه عملی کاربرد هوش مصنوعی با شعار «از پرامپت دقیق تا ایجنت قابل اعتماد». پنج گام مسیر یادگیری: ۱) مهندسی پرامپت — درخواست شفاف، پاسخ هدفمند؛ مشخص‌کردن هدف، زمینه و قالب خروجی؛ ۲) طراحی دستورالعمل (Prompt Card / Skill) — دستور شفاف، اجرای منسجم؛ تعریف گام‌ها و قوانین انجام کار؛ ۳) چت‌بات اختصاصی — دانش شما، دستیار شما؛ تعیین نقش، منابع و مرزهای پاسخ؛ ۴) ایجنت — از پاسخ‌دادن تا انجام کار؛ اتصال ابزارها با نظارت انسان؛ ۵) ارزیابی و کنترل — بسنجید، اصلاح کنید، اعتماد کنید؛ آزمون پاسخ‌ها و کنترل خطا. در پایان کارگاه، از ایده به یک دستیار کاربردی می‌رسید: پرامپت دقیق، مهارت قابل تکرار، چت‌بات اختصاصی و ایجنت قابل ارزیابی.",
   },
@@ -40,7 +42,8 @@ export const courses: Course[] = [
     durationHours: null,
     format: "in-person",
     registrationUrl: "/register/hr-prompt-engineering",
-    imageUrl: "/images/courses/hr-prompt-engineering.jpg",
+    posterImageUrl: "/images/courses/hr-prompt-engineering-poster.jpg",
+    brochureImageUrl: "/images/courses/hr-prompt-engineering-brochure.jpg",
     seoDescription:
       "استفاده حرفه‌ای از هوش مصنوعی در منابع انسانی به شناخت مسئله و کیفیت تعامل با مدل وابسته است. این کارگاه به طراحی پرامپت برای تحلیل اطلاعات تخصصی HR می‌پردازد و کاربردهای آن را در جذب، توسعه و مدیریت عملکرد بررسی می‌کند. مدرس: دکتر عسل آغاز.",
   },
@@ -54,7 +57,8 @@ export const courses: Course[] = [
     durationHours: null,
     format: "in-person",
     registrationUrl: "/register/branding",
-    imageUrl: "/images/courses/branding.jpg",
+    posterImageUrl: "/images/courses/branding-poster.jpg",
+    brochureImageUrl: "/images/courses/branding-brochure.jpg",
     seoDescription:
       "برند در ارتباط میان هویت کسب‌وکار و تجربه مخاطب شکل می‌گیرد. این کارگاه به تصمیم‌های مؤثر بر این ارتباط می‌پردازد؛ از شناخت مخاطب و ارزش پیشنهادی تا روایت، تجربه و ارزیابی برند. مدرس: دکتر علیرضا شیخ. شعار منبع: از معنا و هویت تا تجربه و وفاداری.",
   },
@@ -68,7 +72,8 @@ export const courses: Course[] = [
     durationHours: null,
     format: "in-person",
     registrationUrl: "/register/marketing",
-    imageUrl: "/images/courses/marketing.jpg",
+    posterImageUrl: "/images/courses/marketing-poster.jpg",
+    brochureImageUrl: "/images/courses/marketing-brochure.jpg",
     seoDescription:
       "تصمیم‌های بازاریابی به شناخت بازار، رفتار مشتری و ارزیابی نتیجه وابسته‌اند. این کارگاه ارتباط میان تحقیقات بازار، انتخاب استراتژی، طراحی کمپین و شاخص‌های عملکرد را بررسی می‌کند. مدرس: دکتر علیرضا شیخ. شعار منبع: از شناخت مشتری تا طراحی استراتژی و اجرای کمپین.",
   },
@@ -82,7 +87,8 @@ export const courses: Course[] = [
     durationHours: null,
     format: "in-person",
     registrationUrl: "/register/branding-marketing-in-practice",
-    imageUrl: "/images/courses/branding-marketing-practice.jpg",
+    posterImageUrl: "/images/courses/branding-marketing-practice-poster.jpg",
+    brochureImageUrl: "/images/courses/branding-marketing-practice-brochure.jpg",
     seoDescription:
       "هویت برند، ارزش پیشنهادی و فعالیت‌های بازاریابی بر یکدیگر اثر می‌گذارند. این کارگاه ارتباط میان آن‌ها را در تصمیم‌های کسب‌وکار بررسی می‌کند: از شناخت بازار و طراحی استراتژی برند تا انتخاب کانال، طراحی کمپین و تحلیل شاخص‌های عملکرد. مدرس: دکتر علیرضا شیخ. شعار منبع: از هویت برند تا رشد پایدار کسب‌وکار.",
   },
@@ -96,7 +102,8 @@ export const courses: Course[] = [
     durationHours: null,
     format: "in-person",
     registrationUrl: "/register/managerial-dialogue",
-    imageUrl: "/images/courses/managerial-dialogue.jpg",
+    posterImageUrl: "/images/courses/managerial-dialogue-poster.jpg",
+    brochureImageUrl: "/images/courses/managerial-dialogue-brochure.jpg",
     seoDescription:
       "هم‌اندیشی مدیریتی از مسئله‌ای آغاز می‌شود که مدیر با خود به جلسه می‌آورد. موضوع و انتظار او پیش از جلسه مشخص می‌شود و متخصص مرتبط با آن پیشنهاد می‌شود. گفت‌وگو به بررسی ابعاد مسئله، فرضیات و گزینه‌های تصمیم اختصاص دارد. زیرعنوان منبع: گفت‌وگویی تخصصی برای مواجهه با مسائل واقعی مدیریت.",
   },

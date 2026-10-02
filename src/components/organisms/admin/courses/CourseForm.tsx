@@ -16,8 +16,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Plus, X } from "lucide-react";
 import type { AdminCourse } from "@/lib/data/admin/courses";
 import { AdminFormCard } from "@/components/organisms/admin/AdminPage";
+
+const SUGGESTED_TAGS = [
+  "کارگاه‌ها",
+  "دوره‌های سازمانی",
+  "گزیده دوره‌های برگزار شده",
+];
 
 type Payload = {
   slug: string;
@@ -28,8 +36,10 @@ type Payload = {
   format: string;
   price: number | null;
   registrationUrl: string;
-  imageUrl: string;
+  posterImageUrl: string;
+  brochureImageUrl: string;
   seoDescription: string;
+  tags: string[];
   published: boolean;
 };
 
@@ -49,18 +59,44 @@ export function CourseForm({ initial }: CourseFormProps) {
     format: initial?.format ?? "in-person",
     price: initial?.price ?? null,
     registrationUrl: initial?.registrationUrl ?? "/register/",
-    imageUrl: initial?.imageUrl ?? "",
+    posterImageUrl: initial?.posterImageUrl ?? "",
+    brochureImageUrl: initial?.brochureImageUrl ?? "",
     seoDescription: initial?.seoDescription ?? "",
+    tags: initial?.tags ?? [],
     published: initial?.published ?? true,
   });
   const [priceInput, setPriceInput] = useState(
     initial?.price != null ? String(initial.price) : "",
   );
+  const [customTagInput, setCustomTagInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   function set<K extends keyof Payload>(key: K, value: Payload[K]) {
     setForm((f) => ({ ...f, [key]: value }));
+  }
+
+  function toggleTag(tag: string) {
+    setForm((f) => {
+      const exists = f.tags.includes(tag);
+      return {
+        ...f,
+        tags: exists ? f.tags.filter((t) => t !== tag) : [...f.tags, tag],
+      };
+    });
+  }
+
+  function addCustomTag() {
+    const trimmed = customTagInput.trim();
+    if (!trimmed) return;
+    if (!form.tags.includes(trimmed)) {
+      set("tags", [...form.tags, trimmed]);
+    }
+    setCustomTagInput("");
+  }
+
+  function removeTag(tagToRemove: string) {
+    set("tags", form.tags.filter((t) => t !== tagToRemove));
   }
 
   function onPriceChange(raw: string) {
@@ -245,6 +281,94 @@ export function CourseForm({ initial }: CourseFormProps) {
 
           <section className="space-y-4">
             <div>
+              <h2 className="text-sm font-semibold text-foreground">تگ‌ها و دسته‌بندی</h2>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                برچسب‌هایی که دوره در فیلترها و دسته‌بندی سایت نمایش داده می‌شود (مثلاً کارگاه‌ها، دوره‌های سازمانی، گزیده دوره‌های برگزارشده)
+              </p>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <Label className="text-xs text-muted-foreground">تگ‌های پیشنهادی</Label>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {SUGGESTED_TAGS.map((tag) => {
+                    const active = form.tags.includes(tag);
+                    return (
+                      <Button
+                        key={tag}
+                        type="button"
+                        size="sm"
+                        variant={active ? "default" : "outline"}
+                        aria-pressed={active}
+                        onClick={() => toggleTag(tag)}
+                        className="h-8 px-3 text-xs"
+                      >
+                        {tag}
+                      </Button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex items-end gap-2">
+                <div className="flex-1 space-y-1.5">
+                  <Label htmlFor="newTag">افزودن تگ دلخواه</Label>
+                  <Input
+                    id="newTag"
+                    value={customTagInput}
+                    onChange={(e) => setCustomTagInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        addCustomTag();
+                      }
+                    }}
+                    placeholder="مثلاً دوره‌های ویژه مدیران"
+                  />
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={addCustomTag}
+                  className="shrink-0"
+                >
+                  <Plus className="size-4" />
+                  افزودن
+                </Button>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label className="text-xs text-muted-foreground">
+                  تگ‌های این دوره ({form.tags.length})
+                </Label>
+                {form.tags.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {form.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary" className="gap-1 py-1 pe-1">
+                        {tag}
+                        <button
+                          type="button"
+                          onClick={() => removeTag(tag)}
+                          className="rounded-full p-0.5 transition-colors hover:bg-foreground/10"
+                          aria-label={`حذف تگ ${tag}`}
+                        >
+                          <X className="size-3" />
+                        </button>
+                      </Badge>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-muted-foreground">
+                    هنوز تگی برای این دوره انتخاب نشده است.
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
+
+          <Separator />
+
+          <section className="space-y-4">
+            <div>
               <h2 className="text-sm font-semibold text-foreground">رسانه و انتشار</h2>
               <p className="mt-0.5 text-xs text-muted-foreground">
                 لینک ثبت‌نام، تصویر، SEO و وضعیت انتشار
@@ -261,11 +385,20 @@ export function CourseForm({ initial }: CourseFormProps) {
                 />
               </div>
               <div className="space-y-1.5 sm:col-span-2">
-                <Label htmlFor="imageUrl">آدرس تصویر</Label>
+                <Label htmlFor="posterImageUrl">آدرس پوستر (نمایش در لیست دوره‌ها)</Label>
                 <Input
-                  id="imageUrl"
-                  value={form.imageUrl}
-                  onChange={(e) => set("imageUrl", e.target.value)}
+                  id="posterImageUrl"
+                  value={form.posterImageUrl}
+                  onChange={(e) => set("posterImageUrl", e.target.value)}
+                  placeholder="/images/courses/..."
+                />
+              </div>
+              <div className="space-y-1.5 sm:col-span-2">
+                <Label htmlFor="brochureImageUrl">آدرس بروشور (نمایش در صفحه جزئیات)</Label>
+                <Input
+                  id="brochureImageUrl"
+                  value={form.brochureImageUrl}
+                  onChange={(e) => set("brochureImageUrl", e.target.value)}
                   placeholder="/images/courses/..."
                 />
               </div>

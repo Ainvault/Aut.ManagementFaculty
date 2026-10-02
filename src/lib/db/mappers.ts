@@ -46,8 +46,10 @@ export interface CourseRow {
   format: string;
   price: string | number | null;
   registration_url: string;
-  image_url: string;
+  poster_image_url: string;
+  brochure_image_url: string;
   seo_description: string;
+  tags: string[];
   published: boolean;
 }
 
@@ -62,8 +64,10 @@ export function courseToRow(course: Course): CourseRow {
     format: course.format,
     price: course.price ?? null,
     registration_url: course.registrationUrl,
-    image_url: course.imageUrl,
+    poster_image_url: course.posterImageUrl,
+    brochure_image_url: course.brochureImageUrl,
     seo_description: course.seoDescription,
+    tags: course.tags ?? [],
     published: true,
   };
 }
@@ -330,8 +334,10 @@ export function rowToCourse(row: CourseRow): Course {
     format: row.format as Course["format"],
     price: Number.isFinite(price) ? price : null,
     registrationUrl: row.registration_url,
-    imageUrl: row.image_url,
+    posterImageUrl: row.poster_image_url ?? (row as unknown as { image_url?: string }).image_url ?? "",
+    brochureImageUrl: row.brochure_image_url ?? (row as unknown as { image_url?: string }).image_url ?? "",
     seoDescription: row.seo_description,
+    tags: asStringArray(row.tags),
   };
 }
 
